@@ -1,22 +1,22 @@
 <script>
+    import { menuIsOpen, view } from '../stores';
     import Logo from './Logo.svelte';
     import MenuIcon from './MenuIcon.svelte';
-    export let menuClicked = false;
+    export let home = 'UserLogin';
 </script>
 
 <style>
 </style>
 
 <header class="relative bg-gray-600 text-white text-center h-12">
-    <div class="absolute left-0 h-12 w-12 pt-1 pl-1">
+    <div
+        class="absolute cursor-pointer left-0 h-12 w-12 pt-1 pl-1"
+        on:click={() => {
+            $view = home;
+        }}>
         <Logo size="38" />
     </div>
-    <div class="absolute right-0 h-12 w-12 p-2">
-        <MenuIcon size="32" clicked={menuClicked} />
-        <!--         <div class="grid grid-cols-1 gap-2 w-8 m-2">
-            <div class="bg-white rounded-full w-full h-1" />
-            <div class="bg-white rounded-full w-full h-1" />
-            <div class="bg-white rounded-full w-full h-1" />
-        </div> -->
+    <div class="absolute right-0 cursor-pointer h-12 w-12 p-2" on:click={() => ($menuIsOpen = !$menuIsOpen)}>
+        <MenuIcon size="32" clicked={$menuIsOpen} />
     </div>
 </header>

@@ -10,7 +10,7 @@
 <style>
 </style>
 
-<div class="absolute inset-0 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
+<div class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
     <Header menuClicked={true} />
     <section class="mt-8">
         {#each links as link}
