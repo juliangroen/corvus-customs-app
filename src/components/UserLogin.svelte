@@ -1,12 +1,11 @@
 <script>
-    const test = () => console.log('test');
 </script>
 
 <style>
 </style>
 
 <h1 class=" text-2xl italic font-bold text-center mb-8">User Login</h1>
-<form class="grid grid-col-1 gap-4" on:submit|preventDefault={test}>
+<form class="grid grid-col-1 gap-2" on:submit|preventDefault>
     <label class="font-bold" for="username">Username:</label>
     <input
         class="bg-white rounded-full placeholder-gray-300 border-2 border-transparent focus:outline-none focus:border-gray-400 px-4 py-2"
