@@ -4,11 +4,17 @@
 <style>
 </style>
 
-<div class="relative h-8">
+<!-- top button row -->
+
+<div class="relative h-8 mb-2">
     <span
         class="absolute right-0 cursor-pointer bg-gray-600 text-white text-center leading-10 rounded-full w-10">X</span>
 </div>
-<h1 class=" text-2xl italic font-bold text-center mb-8">Add New Vehicle</h1>
+
+<!-- main heading -->
+<h1 class=" text-2xl italic font-bold text-center mb-4">Add New Vehicle</h1>
+
+<!-- add vehicle form -->
 <form class="grid grid-col-1 gap-2" on:submit|preventDefault>
     <label class="font-bold" for="year">Year:</label>
     <input
