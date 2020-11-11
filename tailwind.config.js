@@ -11,6 +11,9 @@ module.exports = {
     },
 
     theme: {
+        fontFamily: {
+            ibm: 'IBM Plex Mono, monospace',
+        },
         extend: {},
     },
     variants: {},
