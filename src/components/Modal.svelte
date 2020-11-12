@@ -1,5 +1,5 @@
 <script>
-    import { appData } from '../../stores';
+    import { appData } from '../stores';
     export let closeTarget = '';
 </script>
 

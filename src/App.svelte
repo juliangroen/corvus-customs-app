@@ -6,8 +6,8 @@
     import MobileMenu from './components/MobileMenu.svelte';
     import UserLogin from './components/views/UserLogin.svelte';
     import Tailwindcss from './Tailwindcss.svelte';
-    import Modal from './components/views/Modal.svelte';
-    import Page from './components/views/Page.svelte';
+    import Modal from './components/Modal.svelte';
+    import Page from './components/Page.svelte';
 </script>
 
 <style>
@@ -20,16 +20,14 @@
 {/if}
 <main class="m-4">
     {#if $appData.view == 'UserLogin'}
-        <Page>
-            <UserLogin />
-        </Page>
+        <UserLogin />
     {:else if $appData.view == 'AddVehicle'}
         <Modal closeTarget="UserLogin">
             <AddVehicle />
         </Modal>
-    {:else if $appData.view == 'Page'}
-        <Page />
     {:else}
-        <Crud />
+        <Page topLeft={{ visible: true }} bottomLeft={{ visible: true }}>
+            <Crud />
+        </Page>
     {/if}
 </main>
