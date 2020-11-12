@@ -1,4 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const view = writable('AddVehicle');
-export const menuIsOpen = writable(false);
+export const appData = writable({
+    view: 'UserLogin',
+    menuIsOpen: false,
+});

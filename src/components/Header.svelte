@@ -1,7 +1,7 @@
 <script>
-    import { menuIsOpen, view } from '../stores';
-    import Logo from './Logo.svelte';
-    import MenuIcon from './MenuIcon.svelte';
+    import { appData } from '../stores';
+    import Logo from './icons/Logo.svelte';
+    import MenuIcon from './icons/MenuIcon.svelte';
     export let home = 'UserLogin';
 </script>
 
@@ -12,11 +12,14 @@
     <div
         class="absolute cursor-pointer left-0 h-12 w-12 pt-1 pl-1"
         on:click={() => {
-            $view = home;
+            $appData.view = home;
         }}>
         <Logo size="38" />
     </div>
-    <div class="absolute right-0 cursor-pointer h-12 w-12 p-2" on:click={() => ($menuIsOpen = !$menuIsOpen)}>
-        <MenuIcon size="32" clicked={$menuIsOpen} />
+    <!-- <div class="absolute right-0 cursor-pointer h-12 w-12 p-2" on:click={() => ($menuIsOpen = !$menuIsOpen)}>-->
+    <div
+        class="absolute right-0 cursor-pointer h-12 w-12 p-2"
+        on:click={() => ($appData.menuIsOpen = !$appData.menuIsOpen)}>
+        <MenuIcon size="32" clicked={$appData.menuIsOpen} />
     </div>
 </header>
