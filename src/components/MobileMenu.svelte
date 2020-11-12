@@ -10,8 +10,9 @@
 <style>
 </style>
 
-<div class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
-    <Header menuClicked={true} />
+<div
+    class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
+    <Header />
     <section class="mt-8">
         {#each links as link}
             <div class="cursor-pointer mb-8">{link.name.toUpperCase()}</div>

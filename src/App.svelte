@@ -12,7 +12,7 @@
 </style>
 
 <Tailwindcss />
-<Header clicked={false} />
+<Header />
 <main class="text-gray-600 font-ibm m-4">
     {#if $menuIsOpen}
         <MobileMenu />
