@@ -1,7 +1,7 @@
 <script>
-    import { appData } from '../stores';
-    import Logo from './icons/Logo.svelte';
-    import MenuIcon from './icons/MenuIcon.svelte';
+    import { appData } from '../../stores';
+    import Logo from '../icons/Logo.svelte';
+    import MenuIcon from '../icons/MenuIcon.svelte';
     export let home = 'UserLogin';
 </script>
 

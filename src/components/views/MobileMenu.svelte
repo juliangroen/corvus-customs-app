@@ -1,5 +1,5 @@
 <script>
-    import Header from './Header.svelte';
+    import Header from '../shared/Header.svelte';
     export let links = [
         { name: 'vehicles', link: 'Vehicles' },
         { name: 'parts', link: 'PartsList' },
@@ -10,8 +10,7 @@
 <style>
 </style>
 
-<div
-    class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
+<div class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
     <Header />
     <section class="mt-8">
         {#each links as link}

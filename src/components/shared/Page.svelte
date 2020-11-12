@@ -1,6 +1,6 @@
 <script>
-    import { appData } from '../stores';
-    import AddVehicle from './views/AddVehicle.svelte';
+    import { appData } from '../../stores';
+    import AddVehicle from '../views/AddVehicle.svelte';
     export let topLeft = {};
     export let topRight = {};
     export let bottomLeft = {};
