@@ -16,4 +16,8 @@
 <TileHolder>
     <h3 class="text-center mb-2">Your Custom Vehicles</h3>
 </TileHolder>
-<Tile src="../assets/svg/plus-white.svg"><span>Add New Vehicle</span></Tile>
+<Tile
+    src="../assets/svg/plus-white.svg"
+    on:handleClick={() => ($appData.view = 'AddVehicle')}>
+    <span>Add New Vehicle</span>
+</Tile>

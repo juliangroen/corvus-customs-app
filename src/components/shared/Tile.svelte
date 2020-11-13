@@ -1,9 +1,13 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     export let src = false;
+    const handleClick = () => dispatch('handleClick');
 </script>
 
 <div
-    class="grid grid-cols-5 gap-2 items-center cursor-pointer bg-gray-600 rounded-lg text-white h-16">
+    class="grid grid-cols-5 gap-2 items-center cursor-pointer bg-gray-600 rounded-lg text-white h-16"
+    on:click={handleClick}>
     <div
         class="grid items-center justify-center col-span-1 rounded-l-lg bg-gray-500 h-full">
         {#if src}

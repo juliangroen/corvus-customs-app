@@ -23,7 +23,7 @@
     {#if $appData.view == 'UserLogin'}
         <UserLogin />
     {:else if $appData.view == 'AddVehicle'}
-        <Modal closeTarget="UserLogin">
+        <Modal closeTarget="Vehicles">
             <AddVehicle />
         </Modal>
     {:else if $appData.view == 'Vehicles'}
