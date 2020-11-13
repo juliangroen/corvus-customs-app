@@ -9,11 +9,12 @@
 
 <style>
     .xs {
-        font-size: 6px;
+        font-size: 8px;
     }
 </style>
 
-<div class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
+<div
+    class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
     <Header />
     <section class="mt-8">
         {#each links as link}
@@ -26,9 +27,16 @@
         <div class="xs absolute bottom-0 text-center text-gray-400 w-full mb-3">
             <div>©2020 Corvus Customs</div>
             <span>Icons made by</span>
-            <a class="text-gray-200" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            <a
+                class="text-gray-200"
+                href="https://www.flaticon.com/authors/freepik"
+                title="Freepik">Freepik</a>
             from
-            <a class="text-gray-200" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+            <a
+                class="text-gray-200"
+                href="https://www.flaticon.com/"
+                title="Flaticon">
+                www.flaticon.com</a>
         </div>
     </footer>
 </div>
