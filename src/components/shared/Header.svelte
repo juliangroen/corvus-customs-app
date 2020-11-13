@@ -13,6 +13,7 @@
         class="absolute cursor-pointer left-0 h-12 w-12 pt-1 pl-1"
         on:click={() => {
             $appData.view = home;
+            $appData.menuIsOpen = false;
         }}>
         <Logo size="38" />
     </div>
