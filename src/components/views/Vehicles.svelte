@@ -1,5 +1,5 @@
 <script>
-    import { appData } from '../../stores';
+    import { appData, vehicles } from '../../stores';
     import Tile from '../shared/Tile.svelte';
     import TileHolder from '../shared/TileHolder.svelte';
 </script>
@@ -13,7 +13,7 @@
     {$appData.user.name}
 </h1>
 
-<TileHolder>
+<TileHolder tiles={$vehicles}>
     <h3 class="text-center mb-2">Your Custom Vehicles</h3>
 </TileHolder>
 <Tile

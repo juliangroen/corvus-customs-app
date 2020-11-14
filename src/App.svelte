@@ -9,6 +9,7 @@
     import Modal from './components/shared/Modal.svelte';
     import Page from './components/shared/Page.svelte';
     import Vehicles from './components/views/Vehicles.svelte';
+    import EditVehicle from './components/views/EditVehicle.svelte';
 </script>
 
 <style>
@@ -30,8 +31,12 @@
         <Page>
             <Vehicles />
         </Page>
+    {:else if $appData.view == 'EditVehicle'}
+        <Page topLeft bottomLeft bottomRight>
+            <EditVehicle />
+        </Page>
     {:else}
-        <Page topLeft={{ visible: true }} bottomLeft={{ visible: true }}>
+        <Page topLeft bottomLeft>
             <Crud />
         </Page>
     {/if}
