@@ -1,5 +1,5 @@
 <script>
-    import { firebaseLogout } from '../../firebase';
+    import { firebaseSignOut } from '../../firebase';
     import { appData } from '../../stores';
     import Header from '../shared/Header.svelte';
 
@@ -13,7 +13,7 @@
         $appData.menuIsOpen = !$appData.menuIsOpen;
     };
     const handleSignOut = () => {
-        firebaseLogout();
+        firebaseSignOut();
         $appData.menuIsOpen = !$appData.menuIsOpen;
     };
 </script>

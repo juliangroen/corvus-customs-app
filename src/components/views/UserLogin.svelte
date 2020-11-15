@@ -1,5 +1,5 @@
 <script>
-    import { firebaseLogin, firebaseLogout } from '../../firebase';
+    import { firebaseSignIn } from '../../firebase';
     import { appData } from '../../stores';
     $: email = '';
     $: password = '';
@@ -8,7 +8,7 @@
     $: loginError = null;
     $: handleLogin = async () => {
         if (validateFields()) {
-            let result = await firebaseLogin(email, password);
+            let result = await firebaseSignIn(email, password);
             if (typeof result == 'string') {
                 loginError = result;
             } else {
