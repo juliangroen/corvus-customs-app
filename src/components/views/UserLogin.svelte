@@ -24,6 +24,11 @@
             pass = false;
             loginError = null;
             emailError = 'Please enter an email';
+        } else {
+            const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!email.match(pattern)) {
+                emailError = 'Please enter a valid email';
+            }
         }
         if (password == '') {
             pass = false;
