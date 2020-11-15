@@ -1,6 +1,5 @@
 <script>
-    import { appData } from '../../stores';
-    export let closeTarget = '';
+    import { appData, modal } from '../../stores';
     export let bottomLeft = null;
     export let bottomRight = null;
     $: bottomLeftButton = {
@@ -26,7 +25,7 @@
 <div class="relative h-10 mb-2">
     <span
         class="absolute right-0 cursor-pointer bg-gray-600 text-white text-center leading-10 rounded-full w-10"
-        on:click={() => ($appData.view = closeTarget)}>X</span>
+        on:click={modal.close}>X</span>
 </div>
 
 <!-- main content -->

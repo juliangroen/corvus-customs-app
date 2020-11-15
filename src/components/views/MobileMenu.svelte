@@ -1,20 +1,20 @@
 <script>
     import { firebaseSignOut } from '../../firebase';
-    import { appData } from '../../stores';
+    import { appData, menu } from '../../stores';
     import Header from '../shared/Header.svelte';
 
     export let links = [
-        { name: 'vehicles', link: 'Vehicles' },
-        { name: 'parts', link: 'PartsList' },
-        { name: 'reports', link: 'AdminReports' },
+        { name: 'vehicles', target: 'Vehicles' },
+        { name: 'parts', target: 'PartsList' },
+        { name: 'reports', target: 'AdminReports' },
     ];
     const handleSignIn = () => {
         $appData.view = 'UserLogin';
-        $appData.menuIsOpen = !$appData.menuIsOpen;
+        menu.toggle();
     };
     const handleSignOut = () => {
         firebaseSignOut();
-        $appData.menuIsOpen = !$appData.menuIsOpen;
+        menu.toggle();
     };
 </script>
 
@@ -29,7 +29,11 @@
     <Header />
     <section class="mt-8">
         {#each links as link}
-            <div class="cursor-pointer mb-8">{link.name.toUpperCase()}</div>
+            <div
+                class="cursor-pointer mb-8"
+                on:click={() => ($appData.view = link.target) && menu.toggle()}>
+                {link.name.toUpperCase()}
+            </div>
         {/each}
     </section>
     <footer class="absolute bottom-0 w-full h-24">

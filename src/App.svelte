@@ -1,5 +1,5 @@
 <script>
-    import { appData } from './stores';
+    import { appData, menu, modal } from './stores';
     import AddVehicle from './components/views/AddVehicle.svelte';
     import Crud from './components/crud.svelte';
     import Header from './components/shared/Header.svelte';
@@ -32,40 +32,34 @@
 
 <Tailwindcss />
 <Header />
-{#if $appData.menuIsOpen}
+{#if $menu}
     <MobileMenu />
 {/if}
 <main class="m-4">
     {#if $appData.user}
-        {#if $appData.view == 'Vehicles' || $appData.view == 'UserLogin'}
-            <Page>
-                <Vehicles />
-            </Page>
-        {:else if $appData.view == 'AddVehicle'}
-            <Modal closeTarget="Vehicles">
+        {#if $modal.status}
+            {#if $modal.data.content === 'AddVehicle'}
                 <AddVehicle />
-            </Modal>
-        {:else if $appData.view == 'EditVehicle'}
-            <Page topLeft bottomLeft bottomRight>
-                <EditVehicle />
-            </Page>
-        {:else if $appData.view == 'PartSearch'}
-            <Page topLeft topRight={{ target: 'AddPart' }}>
-                <PartSearch />
-            </Page>
-        {:else if $appData.view == 'AddPart'}
-            <Modal closeTarget="PartSearch">
+            {:else if $modal.data.content === 'AddPart'}
                 <AddPart />
-            </Modal>
-        {:else if $appData.view == 'ViewPart'}
-            <Modal closeTarget="PartSearch" bottomLeft bottomRight>
+            {:else if $modal.data.content === 'ViewPart'}
                 <ViewPart />
-            </Modal>
-        {:else}
+            {/if}
+        {/if}
+        <section class={$modal.status ? 'hidden' : null}>
+            {#if $appData.view === 'Vehicles' || $appData.view == 'UserLogin'}
+                <Vehicles />
+            {:else if $appData.view === 'EditVehicle'}
+                <EditVehicle />
+            {:else if $appData.view === 'PartSearch'}
+                <PartSearch />
+
+                <!-- {:else}
             <Page topLeft bottomLeft>
                 <Crud />
-            </Page>
-        {/if}
+            </Page> -->
+            {/if}
+        </section>
     {:else}
         <UserLogin />
     {/if}

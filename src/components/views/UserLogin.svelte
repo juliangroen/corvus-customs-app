@@ -7,14 +7,45 @@
     $: passError = null;
     $: loginError = null;
     $: handleLogin = async () => {
-        if (validateFields()) {
-            let result = await firebaseSignIn(email, password);
-            if (typeof result == 'string') {
-                loginError = result;
-            } else {
-                $appData.view = 'Vehicles';
+        //if (validateEmail() && validatePassword()) {
+        if (validateEmail()) {
+            if (validatePassword()) {
+                loginError = null;
+                emailError = null;
+                passError = null;
+                let result = await firebaseSignIn(email, password);
+                if (typeof result == 'string') {
+                    loginError = result;
+                }
             }
         }
+    };
+    const validateEmail = () => {
+        loginError = null;
+        emailError = null;
+        let pass = true;
+        if (email == '') {
+            pass = false;
+            emailError = 'Please enter an email';
+        } else {
+            const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!email.match(pattern)) {
+                pass = false;
+                emailError = 'Please enter a valid email';
+            }
+        }
+        return pass;
+    };
+    const validatePassword = () => {
+        loginError = null;
+        passError = null;
+        let pass = true;
+        if (password == '') {
+            console.log('made it');
+            pass = false;
+            passError = 'Please enter a password';
+        }
+        return pass;
     };
     const validateFields = () => {
         emailError = null;
@@ -27,6 +58,7 @@
         } else {
             const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (!email.match(pattern)) {
+                pass = false;
                 emailError = 'Please enter a valid email';
             }
         }
@@ -57,7 +89,8 @@
         type="text"
         name="email"
         bind:value={email}
-        placeholder="please enter your username" />
+        placeholder="please enter your username"
+        on:change={validateEmail} />
 
     {#if emailError}
         <span class="text-red-300 italic mx-auto">{emailError}</span>
@@ -68,7 +101,8 @@
         type="password"
         name="password"
         bind:value={password}
-        placeholder="please enter your password" />
+        placeholder="please enter your password"
+        on:change={validatePassword} />
 
     {#if passError}
         <span class="text-red-300 italic mx-auto">{passError}</span>

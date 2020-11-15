@@ -1,5 +1,6 @@
 <script>
     import PartFactory from '../../models/PartFactory';
+    import Modal from '../shared/Modal.svelte';
     import TileHolder from '../shared/TileHolder.svelte';
     export let part = PartFactory.createTire({
         name: 'Test Tire',
@@ -25,5 +26,9 @@
 <style>
 </style>
 
-<h1 class=" text-2xl italic font-bold text-center mb-4">{part.getName()}</h1>
-<TileHolder tiles={tiles()} />
+<Modal bottomLeft bottomRight>
+    <h1 class=" text-2xl italic font-bold text-center mb-4">
+        {part.getName()}
+    </h1>
+    <TileHolder tiles={tiles()} />
+</Modal>
