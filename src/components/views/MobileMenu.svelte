@@ -1,10 +1,21 @@
 <script>
+    import { firebaseLogout } from '../../firebase';
+    import { appData } from '../../stores';
     import Header from '../shared/Header.svelte';
+
     export let links = [
         { name: 'vehicles', link: 'Vehicles' },
         { name: 'parts', link: 'PartsList' },
         { name: 'reports', link: 'AdminReports' },
     ];
+    const handleSignIn = () => {
+        $appData.view = 'UserLogin';
+        $appData.menuIsOpen = !$appData.menuIsOpen;
+    };
+    const handleSignOut = () => {
+        firebaseLogout();
+        $appData.menuIsOpen = !$appData.menuIsOpen;
+    };
 </script>
 
 <style>
@@ -22,8 +33,12 @@
         {/each}
     </section>
     <footer class="absolute bottom-0 w-full h-24">
-        <div class="absolute bg-indigo-200 rounded-full w-12 h-12 ml-8" />
-        <div>SIGN OUT</div>
+        {#if $appData.user}
+            <div class="absolute bg-indigo-200 rounded-full w-12 h-12 ml-8" />
+            <div class="cursor-pointer" on:click={handleSignOut}>SIGN OUT</div>
+        {:else}
+            <div class="cursor-pointer" on:click={handleSignIn}>SIGN IN</div>
+        {/if}
         <div class="xs absolute bottom-0 text-center text-gray-400 w-full mb-3">
             <div>©2020 Corvus Customs</div>
             <span>Icons made by</span>

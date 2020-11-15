@@ -13,6 +13,18 @@
     import PartSearch from './components/views/PartSearch.svelte';
     import AddPart from './components/views/AddPart.svelte';
     import ViewPart from './components/views/ViewPart.svelte';
+
+    // Realtime Firebase User Listener
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+        if (firebaseUser) {
+            $appData.user = firebaseUser;
+        } else {
+            $appData.user = null;
+            console.log('not logged in');
+        }
+    });
 </script>
 
 <style>
@@ -24,35 +36,37 @@
     <MobileMenu />
 {/if}
 <main class="m-4">
-    {#if $appData.view == 'UserLogin'}
-        <UserLogin />
-    {:else if $appData.view == 'Vehicles'}
-        <Page>
-            <Vehicles />
-        </Page>
-    {:else if $appData.view == 'AddVehicle'}
-        <Modal closeTarget="Vehicles">
-            <AddVehicle />
-        </Modal>
-    {:else if $appData.view == 'EditVehicle'}
-        <Page topLeft bottomLeft bottomRight>
-            <EditVehicle />
-        </Page>
-    {:else if $appData.view == 'PartSearch'}
-        <Page topLeft topRight={{ target: 'AddPart' }}>
-            <PartSearch />
-        </Page>
-    {:else if $appData.view == 'AddPart'}
-        <Modal closeTarget="PartSearch">
-            <AddPart />
-        </Modal>
-    {:else if $appData.view == 'ViewPart'}
-        <Modal closeTarget="PartSearch" bottomLeft bottomRight>
-            <ViewPart />
-        </Modal>
+    {#if $appData.user}
+        {#if $appData.view == 'Vehicles' || $appData.view == 'UserLogin'}
+            <Page>
+                <Vehicles />
+            </Page>
+        {:else if $appData.view == 'AddVehicle'}
+            <Modal closeTarget="Vehicles">
+                <AddVehicle />
+            </Modal>
+        {:else if $appData.view == 'EditVehicle'}
+            <Page topLeft bottomLeft bottomRight>
+                <EditVehicle />
+            </Page>
+        {:else if $appData.view == 'PartSearch'}
+            <Page topLeft topRight={{ target: 'AddPart' }}>
+                <PartSearch />
+            </Page>
+        {:else if $appData.view == 'AddPart'}
+            <Modal closeTarget="PartSearch">
+                <AddPart />
+            </Modal>
+        {:else if $appData.view == 'ViewPart'}
+            <Modal closeTarget="PartSearch" bottomLeft bottomRight>
+                <ViewPart />
+            </Modal>
+        {:else}
+            <Page topLeft bottomLeft>
+                <Crud />
+            </Page>
+        {/if}
     {:else}
-        <Page topLeft bottomLeft>
-            <Crud />
-        </Page>
+        <UserLogin />
     {/if}
 </main>

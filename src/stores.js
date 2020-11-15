@@ -1,10 +1,9 @@
-import { tick } from 'svelte';
 import { writable } from 'svelte/store';
 
 export const appData = writable({
-    view: 'ViewPart',
+    view: 'UserLogin',
     menuIsOpen: false,
-    user: { name: 'WGU' },
+    user: null,
 });
 
 export const vehicles = writable([

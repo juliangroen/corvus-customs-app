@@ -10,7 +10,7 @@
 <!-- Main Heading -->
 <h1 class=" text-2xl italic font-bold text-center mb-4">
     Welcome
-    {$appData.user.name}
+    {$appData.user.email}
 </h1>
 
 <TileHolder tiles={$vehicles}>
