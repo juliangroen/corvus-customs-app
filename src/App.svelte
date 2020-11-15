@@ -1,4 +1,6 @@
 <script>
+    import firebase from 'firebase/app';
+    import 'firebase/auth';
     import { appData, menu, modal } from './stores';
     import AddVehicle from './components/views/AddVehicle.svelte';
     import Crud from './components/crud.svelte';
@@ -13,18 +15,17 @@
     import PartSearch from './components/views/PartSearch.svelte';
     import AddPart from './components/views/AddPart.svelte';
     import ViewPart from './components/views/ViewPart.svelte';
+    import { onDestroy } from 'svelte';
 
     // Realtime Firebase User Listener
-    import firebase from 'firebase/app';
-    import 'firebase/auth';
-    firebase.auth().onAuthStateChanged((firebaseUser) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
         if (firebaseUser) {
             $appData.user = firebaseUser;
         } else {
-            $appData.user = null;
             console.log('not logged in');
         }
     });
+    onDestroy(() => unsubscribe());
 </script>
 
 <style>

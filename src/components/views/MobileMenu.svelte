@@ -14,6 +14,7 @@
     };
     const handleSignOut = () => {
         firebaseSignOut();
+        $appData.user = null;
         menu.toggle();
     };
 </script>
