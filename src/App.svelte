@@ -10,6 +10,7 @@
     import Page from './components/shared/Page.svelte';
     import Vehicles from './components/views/Vehicles.svelte';
     import EditVehicle from './components/views/EditVehicle.svelte';
+    import PartSearch from './components/views/PartSearch.svelte';
 </script>
 
 <style>
@@ -23,17 +24,21 @@
 <main class="m-4">
     {#if $appData.view == 'UserLogin'}
         <UserLogin />
-    {:else if $appData.view == 'AddVehicle'}
-        <Modal closeTarget="Vehicles">
-            <AddVehicle />
-        </Modal>
     {:else if $appData.view == 'Vehicles'}
         <Page>
             <Vehicles />
         </Page>
+    {:else if $appData.view == 'AddVehicle'}
+        <Modal closeTarget="Vehicles">
+            <AddVehicle />
+        </Modal>
     {:else if $appData.view == 'EditVehicle'}
         <Page topLeft bottomLeft bottomRight>
             <EditVehicle />
+        </Page>
+    {:else if $appData.view == 'PartSearch'}
+        <Page topLeft topRight>
+            <PartSearch />
         </Page>
     {:else}
         <Page topLeft bottomLeft>

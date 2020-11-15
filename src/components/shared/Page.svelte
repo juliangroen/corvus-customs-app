@@ -30,8 +30,8 @@
         target: '',
         ...bottomRight,
     };
-    $: topRow = topLeftButton || topRightButton ? true : false;
-    $: bottomRow = bottomLeftButton || bottomRightButton ? true : false;
+    $: topRow = topLeft || topRight ? true : false;
+    $: bottomRow = bottomLeft || bottomRight ? true : false;
 </script>
 
 <style>
@@ -39,7 +39,7 @@
 
 <!-- Top Row Buttons -->
 {#if topRow}
-    <div class="relative h-10 mb-2">
+    <div class="relative h-10 mb-4">
         <!-- Left Button -->
         {#if topLeft}
             <span

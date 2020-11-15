@@ -2,7 +2,7 @@ import { tick } from 'svelte';
 import { writable } from 'svelte/store';
 
 export const appData = writable({
-    view: 'EditVehicle',
+    view: 'PartSearch',
     menuIsOpen: false,
     user: { name: 'WGU' },
 });
