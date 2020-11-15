@@ -11,6 +11,7 @@
     import Vehicles from './components/views/Vehicles.svelte';
     import EditVehicle from './components/views/EditVehicle.svelte';
     import PartSearch from './components/views/PartSearch.svelte';
+    import AddPart from './components/views/AddPart.svelte';
 </script>
 
 <style>
@@ -37,9 +38,13 @@
             <EditVehicle />
         </Page>
     {:else if $appData.view == 'PartSearch'}
-        <Page topLeft topRight>
+        <Page topLeft topRight={{ target: 'AddPart' }}>
             <PartSearch />
         </Page>
+    {:else if $appData.view == 'AddPart'}
+        <Modal closeTarget="PartSearch">
+            <AddPart />
+        </Modal>
     {:else}
         <Page topLeft bottomLeft>
             <Crud />
