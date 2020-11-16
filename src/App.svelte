@@ -14,8 +14,8 @@
     import ViewPart from './components/views/ViewPart.svelte';
     import { onDestroy, onMount } from 'svelte';
 
-    let unsubscribe;
     // Realtime Firebase User Listener
+    let unsubscribe;
     onMount(() => {
         unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
@@ -29,14 +29,8 @@
     onDestroy(() => unsubscribe());
 </script>
 
-<style>
-</style>
-
 <Tailwindcss />
 <Header />
-{#if $menu}
-    <MobileMenu />
-{/if}
 <main class="m-4">
     {#if $appData.loading}
         <div class="text-gray-400">
@@ -54,6 +48,9 @@
             </svg>
         </div>
     {:else if $appData.user}
+        {#if $menu}
+            <MobileMenu />
+        {/if}
         {#if $modal.status}
             {#if $modal.data.content === 'AddVehicle'}
                 <AddVehicle />
@@ -70,11 +67,6 @@
                 <EditVehicle />
             {:else if $appData.view === 'PartSearch'}
                 <PartSearch />
-
-                <!-- {:else}
-            <Page topLeft bottomLeft>
-                <Crud />
-            </Page> -->
             {/if}
         </section>
     {:else}

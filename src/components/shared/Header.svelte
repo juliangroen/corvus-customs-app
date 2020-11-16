@@ -1,5 +1,5 @@
 <script>
-    import { appData, menu } from '../../stores';
+    import { appData, menu, modal } from '../../stores';
     import Logo from '../icons/Logo.svelte';
     import MenuIcon from '../icons/MenuIcon.svelte';
     export let home = 'Vehicles';
@@ -8,12 +8,13 @@
 <style>
 </style>
 
-<header class="relative bg-gray-600 text-white text-center h-12">
+<header class="relative z-50 bg-gray-600 text-white text-center h-12">
     <div
         class="absolute cursor-pointer left-0 h-12 w-12 pt-1 pl-1"
         on:click={() => {
             $appData.view = home;
             menu.close();
+            modal.close();
         }}>
         <Logo size="38" />
     </div>

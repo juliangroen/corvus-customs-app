@@ -1,6 +1,6 @@
 <script>
     import { firebaseSignOut } from '../../firebase';
-    import { appData, menu } from '../../stores';
+    import { appData, menu, modal } from '../../stores';
     import Header from '../shared/Header.svelte';
 
     export let links = [
@@ -17,6 +17,11 @@
         $appData.user = null;
         menu.toggle();
     };
+    const handleLink = (link) => {
+        $appData.view = link.target;
+        menu.close();
+        modal.close();
+    };
 </script>
 
 <style>
@@ -26,13 +31,10 @@
 </style>
 
 <div
-    class="absolute inset-0 z-50 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full">
-    <Header />
+    class="absolute inset-0 z-40 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full pt-12">
     <section class="mt-8">
         {#each links as link}
-            <div
-                class="cursor-pointer mb-8"
-                on:click={() => ($appData.view = link.target) && menu.toggle()}>
+            <div class="cursor-pointer mb-8" on:click={() => handleLink(link)}>
                 {link.name.toUpperCase()}
             </div>
         {/each}
