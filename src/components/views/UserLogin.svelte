@@ -81,53 +81,36 @@
 <style>
 </style>
 
-{#if $appData.user}
-    <div>
-        <svg
-            class="animate-bounce"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-        </svg>
-    </div>
-{:else}
-    <h1 class=" text-2xl italic font-bold text-center mb-4">User Login</h1>
-    <form class="grid grid-col-1 gap-2" on:submit|preventDefault={handleLogin}>
-        <label class="font-bold" for="email">Email:</label>
-        <input
-            class="bg-white rounded-full placeholder-gray-300 border-2 border-transparent focus:outline-none focus:border-gray-400 px-4 py-2"
-            type="text"
-            name="email"
-            bind:value={email}
-            placeholder="please enter your username"
-            on:change={validateEmail} />
+<h1 class=" text-2xl italic font-bold text-center mb-4">User Login</h1>
+<form class="grid grid-col-1 gap-2" on:submit|preventDefault={handleLogin}>
+    <label class="font-bold" for="email">Email:</label>
+    <input
+        class="bg-white rounded-full placeholder-gray-300 border-2 border-transparent focus:outline-none focus:border-gray-400 px-4 py-2"
+        type="text"
+        name="email"
+        bind:value={email}
+        placeholder="please enter your username"
+        on:change={validateEmail} />
 
-        {#if emailError}
-            <span class="text-red-300 italic mx-auto">{emailError}</span>
-        {/if}
-        <label class="font-bold" for="password">Password:</label>
-        <input
-            class="bg-white rounded-full placeholder-gray-300 border-2 border-transparent focus:outline-none focus:border-gray-400 px-4 py-2 mb-2"
-            type="password"
-            name="password"
-            bind:value={password}
-            placeholder="please enter your password"
-            on:change={validatePassword} />
+    {#if emailError}
+        <span class="text-red-300 italic mx-auto">{emailError}</span>
+    {/if}
+    <label class="font-bold" for="password">Password:</label>
+    <input
+        class="bg-white rounded-full placeholder-gray-300 border-2 border-transparent focus:outline-none focus:border-gray-400 px-4 py-2 mb-2"
+        type="password"
+        name="password"
+        bind:value={password}
+        placeholder="please enter your password"
+        on:change={validatePassword} />
 
-        {#if passError}
-            <span class="text-red-300 italic mx-auto">{passError}</span>
-        {/if}
-        <button
-            class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
-        {#if loginError}
-            <span class="text-red-300 italic text-center mx-auto">Login Error:
-                {loginError}</span>
-        {/if}
-    </form>
-{/if}
+    {#if passError}
+        <span class="text-red-300 italic mx-auto">{passError}</span>
+    {/if}
+    <button
+        class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+    {#if loginError}
+        <span class="text-red-300 italic text-center mx-auto">Login Error:
+            {loginError}</span>
+    {/if}
+</form>

@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
 
 export const appData = writable({
-    view: 'UserLogin',
+    loading: true,
     user: null,
+    view: 'UserLogin',
     vehicle: null,
 });
 
