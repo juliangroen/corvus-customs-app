@@ -29,7 +29,6 @@
 </style>
 
 <Modal>
-    <span>{year} {make} {model}</span>
     <h1 class=" text-2xl italic font-bold text-center mb-4">Add New Vehicle</h1>
     <form class="grid grid-col-1 gap-2" on:submit|preventDefault={handleSubmit}>
         <label class="font-bold" for="year">Year:</label>

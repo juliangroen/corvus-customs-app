@@ -32,6 +32,9 @@
 <Tailwindcss />
 <Header />
 <main class="m-4">
+    {#if $menu}
+        <MobileMenu />
+    {/if}
     {#if $appData.loading}
         <div class="text-gray-400">
             <svg
@@ -48,9 +51,6 @@
             </svg>
         </div>
     {:else if $appData.user}
-        {#if $menu}
-            <MobileMenu />
-        {/if}
         {#if $modal.status}
             {#if $modal.data.content === 'AddVehicle'}
                 <AddVehicle />

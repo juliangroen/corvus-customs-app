@@ -1,6 +1,6 @@
 <script>
-    import { appData } from '../../stores';
-    import AddVehicle from '../views/AddVehicle.svelte';
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     export let topLeft = null;
     export let topRight = null;
     export let bottomLeft = null;
@@ -44,13 +44,13 @@
         {#if topLeft}
             <span
                 class="absolute left-0 cursor-pointer bg-{topLeftButton.color} text-white text-center leading-10 rounded-full w-1/4"
-                on:click={() => ($appData.view = topLeft.target)}>{topLeftButton.text}</span>
+                on:click={() => dispatch('tlClick')}>{topLeftButton.text}</span>
         {/if}
         <!-- Right Button -->
         {#if topRight}
             <span
                 class="absolute right-0 cursor-pointer bg-{topRightButton.color} text-white text-center leading-10 rounded-full w-1/4"
-                on:click={() => ($appData.view = topRight.target)}>{topRightButton.text}</span>
+                on:click={() => dispatch('trClick')}>{topRightButton.text}</span>
         {/if}
     </div>
 {/if}
@@ -68,13 +68,13 @@
         {#if bottomLeft}
             <span
                 class="absolute left-0 cursor-pointer bg-{bottomLeftButton.color} text-white text-center leading-10 rounded-full w-1/4"
-                on:click={() => ($appData.view = bottomLeft.target)}>{bottomLeftButton.text}</span>
+                on:click={() => dispatch('blClick')}>{bottomLeftButton.text}</span>
         {/if}
         <!-- Right Button -->
         {#if bottomRight}
             <span
                 class="absolute right-0 cursor-pointer bg-{bottomRightButton.color} text-white text-center leading-10 rounded-full w-1/4"
-                on:click={() => ($appData.view = bottomRight.target)}>{bottomRightButton.text}</span>
+                on:click={() => dispatch('brClick')}>{bottomRightButton.text}</span>
         {/if}
     </div>
 {/if}

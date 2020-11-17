@@ -30,12 +30,8 @@
             <span>{tile.year} {tile.make} {tile.model}</span>
         </Tile>
     {/each}
-    <!-- {#each $vehicles as tile}
-        <Tile src={tile.src} on:handleClick={selectVehicle(tile)}>
-            <span>{tile.text}</span>
-        </Tile>
-    {/each} -->
 </section>
+
 <Tile src="../assets/svg/plus-white.svg" on:handleClick={handleAddVehicle}>
     <span>Add New Vehicle</span>
 </Tile>
