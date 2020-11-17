@@ -20,10 +20,10 @@
         unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
                 $appData.user = firebaseUser;
-                $appData.loading = false;
             } else {
                 console.log('not logged in');
             }
+            $appData.loading = false;
         });
     });
     onDestroy(() => unsubscribe());
@@ -58,6 +58,8 @@
                 <AddPart />
             {:else if $modal.data.content === 'ViewPart'}
                 <ViewPart />
+            {:else if $modal.data.content === 'PartSearch'}
+                <PartSearch />
             {/if}
         {/if}
         <section class={$modal.status ? 'hidden' : null}>

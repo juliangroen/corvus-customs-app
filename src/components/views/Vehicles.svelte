@@ -16,22 +16,15 @@
 </style>
 
 <!-- Main Heading -->
-<h1 class=" text-2xl italic font-bold text-center mb-4">
-    Welcome
-    {$appData.user.email}
-</h1>
+<h1 class=" text-2xl italic font-bold text-center mb-4">Welcome {$appData.user.email}</h1>
 
 <section class="grid grid-cols-1 gap-2 mb-2">
     <slot />
     {#each $vehicles as tile}
-        <Tile
-            src="../assets/svg/parts/key.svg"
-            on:handleClick={selectVehicle(tile)}>
+        <Tile src="../assets/svg/parts/key.svg" on:click={selectVehicle(tile)}>
             <span>{tile.year} {tile.make} {tile.model}</span>
         </Tile>
     {/each}
 </section>
 
-<Tile src="../assets/svg/plus-white.svg" on:handleClick={handleAddVehicle}>
-    <span>Add New Vehicle</span>
-</Tile>
+<Tile src="../assets/svg/plus-white.svg" on:click={handleAddVehicle}><span>Add New Vehicle</span></Tile>
