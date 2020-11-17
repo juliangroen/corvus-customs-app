@@ -23,3 +23,13 @@ export const firebaseSignIn = async (email, pass) => {
 export const firebaseSignOut = () => {
     firebase.auth().signOut();
 };
+
+// Universal Delete Function
+export const firebaseDeleteItem = (collection, id) => {
+    db.collection(collection).doc(id).delete();
+};
+
+// Add Vehicle Function
+export const firebaseAddVehicle = async (obj) => {
+    return await db.collection('vehicles').doc(obj.id).set(obj);
+};
