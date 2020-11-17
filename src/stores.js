@@ -1,4 +1,5 @@
-import { writable } from 'svelte/store';
+import { readable, writable } from 'svelte/store';
+import { db } from './firebase';
 
 export const appData = writable({
     loading: true,
@@ -33,15 +34,24 @@ export const modal = (() => {
     };
 })();
 
-export const vehicles = writable([
-    {
-        text: 'Vehicle 1',
-        src: '../assets/svg/parts/key.svg',
-    },
-    { text: 'Vehicle 2', src: '../assets/svg/parts/key.svg' },
-    {
-        text: 'Vehicle 3',
-        src: '../assets/svg/parts/key.svg',
-    },
-    { text: 'Vehicle 4', src: '../assets/svg/parts/key.svg' },
-]);
+export const vehicles = (() => {
+    const vehicles = readable([], (set) => {
+        const unsubscribe = db
+            .collection('vehicles')
+            .orderBy('id', 'asc')
+            .onSnapshot(
+                (snapshot) => {
+                    let data = [];
+                    snapshot.docs.map((val) => data.push(val.data()));
+                    set(data);
+                },
+                (e) => {
+                    console.log(e);
+                }
+            );
+        return () => {
+            unsubscribe();
+        };
+    });
+    return vehicles;
+})();

@@ -25,8 +25,8 @@ export const firebaseSignOut = () => {
 };
 
 // Universal Delete Function
-export const firebaseDeleteItem = (collection, id) => {
-    db.collection(collection).doc(id).delete();
+export const firebaseDeleteItem = async (collection, id) => {
+    return await db.collection(collection).doc(id).delete();
 };
 
 // Add Vehicle Function

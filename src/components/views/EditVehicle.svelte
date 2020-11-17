@@ -1,5 +1,4 @@
 <script>
-    import { appData } from '../../stores';
     import Page from '../shared/Page.svelte';
     import Tile from '../shared/Tile.svelte';
 </script>
