@@ -31,7 +31,7 @@
 
 <Tailwindcss />
 <Header />
-<main class="m-4">
+<main class="m-4 max-w-xl mx-auto p-2">
     {#if $menu}
         <MobileMenu />
     {/if}
