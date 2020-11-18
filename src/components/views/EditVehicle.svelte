@@ -1,12 +1,20 @@
 <script>
-    import { firebaseDeleteItem } from '../../firebase';
+    import { firebaseDeleteItem, firebaseGetItem } from '../../firebase';
     import { appData, modal } from '../../stores';
     import Page from '../shared/Page.svelte';
     import Tile from '../shared/Tile.svelte';
     $: vehicle = $appData.vehicle;
     const svgPath = './assets/svg/parts/';
-    const handlePartClick = (part) => {
-        console.log(part);
+    const handlePartClick = (partKey, partVal) => {
+        const part = firebaseGetItem(partKey, partVal)
+            .then((val) => {
+                $appData.part = val.data();
+                console.log($appData.part);
+
+                modal.toggle();
+                modal.setContent('ViewPart');
+            })
+            .catch((e) => console.log(e));
     };
     const handlePartSearch = () => {
         modal.toggle();
@@ -41,7 +49,7 @@
                 {#if partVal === ''}
                     <Tile box empty src={`${svgPath}${partKey}.svg`} on:click={handlePartSearch} />
                 {:else}
-                    <Tile box src={`${svgPath}${partKey}.svg`} on:click={() => handlePartClick(partVal)} />
+                    <Tile box src={`${svgPath}${partKey}.svg`} on:click={() => handlePartClick(partKey, partVal)} />
                 {/if}
             {/each}
         </div>

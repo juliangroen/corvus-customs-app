@@ -1,8 +1,11 @@
 import { readable, writable } from 'svelte/store';
 import { db } from './firebase';
+import VehicleFactory from './models/VehicleFactory';
+import PartFactory from './models/PartFactory';
 
 export const appData = writable({
     loading: true,
+    part: null,
     user: null,
     view: 'UserLogin',
     vehicle: null,
@@ -42,7 +45,10 @@ export const vehicles = (() => {
             .onSnapshot(
                 (snapshot) => {
                     let data = [];
-                    snapshot.docs.map((val) => data.push(val.data()));
+                    snapshot.docs.map((val) => {
+                        let doc = val.data();
+                        data.push(VehicleFactory.createVehicle(doc));
+                    });
                     set(data);
                 },
                 (e) => {
@@ -54,4 +60,29 @@ export const vehicles = (() => {
         };
     });
     return vehicles;
+})();
+
+export const tires = (() => {
+    const tires = readable([], (set) => {
+        const unsubscribe = db
+            .collection('tires')
+            .orderBy('id', 'asc')
+            .onSnapshot(
+                (snapshot) => {
+                    let data = [];
+                    snapshot.docs.map((val) => {
+                        let doc = val.data();
+                        data.push(PartFactory.createTire(doc));
+                    });
+                    set(data);
+                },
+                (e) => {
+                    console.log(e);
+                }
+            );
+        return () => {
+            unsubscribe();
+        };
+    });
+    return tires;
 })();

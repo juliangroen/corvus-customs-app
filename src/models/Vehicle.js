@@ -3,8 +3,8 @@ const createID = () => {
 };
 const partsObj = {
     brakes: '',
-    charger: '',
-    exhaust: '',
+    chargers: '',
+    exhausts: '',
     shocks: '',
     tires: '',
     wheels: '',
