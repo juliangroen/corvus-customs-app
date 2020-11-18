@@ -2,12 +2,12 @@ const createID = () => {
     return `V${new Date().getTime()}`;
 };
 const partsObj = {
-    brakes: '',
-    chargers: '',
-    exhausts: '',
-    shocks: '',
-    tires: '',
-    wheels: '',
+    brakes: null,
+    chargers: null,
+    exhausts: null,
+    shocks: null,
+    tires: null,
+    wheels: null,
 };
 const Vehicle = (id = createID(), year, make, model, parts = partsObj) => {
     const getId = () => id;
