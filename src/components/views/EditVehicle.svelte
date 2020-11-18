@@ -1,12 +1,12 @@
 <script>
     import { onMount } from 'svelte';
 
-    import { firebaseDeleteItem, firebaseGetItem } from '../../firebase';
+    import { firebaseDeleteItem, firebaseGetItem, firebaseSetItem } from '../../firebase';
     import { appData, modal } from '../../stores';
     import Page from '../shared/Page.svelte';
     import Tile from '../shared/Tile.svelte';
-    const vehicle = $appData.vehicle;
-    const { tires, chargers, wheels, shocks, brakes, exhausts } = vehicle.parts;
+    $: vehicle = $appData.vehicle;
+    $: ({ tires, chargers, wheels, shocks, brakes, exhausts } = vehicle.parts);
     onMount(() => console.log(tires));
     onMount(() => console.log(chargers));
     const svgPath = './assets/svg/parts/';
@@ -38,12 +38,32 @@
                 });
         }
     };
+    const handleSave = () => {
+        let result = confirm('Are you sure you want to save changes to this vehicle?');
+        if (result) {
+            const obj = vehicle.dbObject();
+            firebaseSetItem('vehicles', obj)
+                .then(() => {
+                    console.log(`${obj.id} was saved`);
+                    $appData.view = 'Vehicles';
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+    };
 </script>
 
 <style>
 </style>
 
-<Page topLeft bottomLeft bottomRight on:tlClick={() => ($appData.view = 'Vehicles')} on:blClick={handleDelete}>
+<Page
+    topLeft
+    bottomLeft
+    bottomRight
+    on:tlClick={() => ($appData.view = 'Vehicles')}
+    on:blClick={handleDelete}
+    on:brClick={handleSave}>
     <!-- Main Heading -->
     <h1 class=" text-2xl italic font-bold text-center mb-4">Customize Vehicle</h1>
 

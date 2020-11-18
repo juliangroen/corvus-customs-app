@@ -1,16 +1,20 @@
 <script>
-    import { appData } from '../../stores';
+    import { appData, modal } from '../../stores';
     import Modal from '../shared/Modal.svelte';
     import Tile from '../shared/Tile.svelte';
-
     const part = $appData.part;
     const { category, name, model, id, ...rest } = part;
+    const handleRemove = () => {
+        const field = `${category}s`;
+        $appData.vehicle.parts[field] = null;
+        modal.close();
+    };
 </script>
 
 <style>
 </style>
 
-<Modal bottomLeft={{ text: 'REMOVE' }} bottomRight>
+<Modal bottomLeft={{ text: 'REMOVE' }} bottomRight on:blClick={handleRemove}>
     <h1 class=" text-2xl italic font-bold text-center mb-4">{part.name}</h1>
 
     <div class="grid grid-cols-1 gap-2 mb-2">

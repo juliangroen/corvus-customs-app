@@ -23,10 +23,17 @@ export const firebaseSignIn = async (email, pass) => {
 export const firebaseSignOut = () => {
     firebase.auth().signOut();
 };
+
 // Universal Get Function
 export const firebaseGetItem = async (collection, id) => {
     return await db.collection(collection).doc(id).get();
 };
+
+// Universal Set Function
+export const firebaseSetItem = async (colletion, obj) => {
+    return await db.collection(colletion).doc(obj.id).set(obj);
+};
+
 // Universal Delete Function
 export const firebaseDeleteItem = async (collection, id) => {
     return await db.collection(collection).doc(id).delete();
