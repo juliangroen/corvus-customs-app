@@ -4,6 +4,7 @@ import VehicleFactory from './models/VehicleFactory';
 import PartFactory from './models/PartFactory';
 
 export const appData = writable({
+    category: null,
     loading: true,
     part: null,
     user: null,
@@ -44,11 +45,12 @@ export const vehicles = (() => {
             .orderBy('id', 'asc')
             .onSnapshot(
                 (snapshot) => {
-                    let data = [];
-                    snapshot.docs.map((val) => {
-                        let doc = val.data();
-                        data.push(VehicleFactory.createVehicle(doc));
-                    });
+                    let data = snapshot.docs
+                        .map((val) => {
+                            let doc = val.data();
+                            return VehicleFactory.createVehicle(doc);
+                        })
+                        .filter((val) => val !== undefined);
                     set(data);
                 },
                 (e) => {
@@ -62,18 +64,25 @@ export const vehicles = (() => {
     return vehicles;
 })();
 
-export const tires = (() => {
-    const tires = readable([], (set) => {
+export const parts = (() => {
+    const parts = readable([], (set) => {
         const unsubscribe = db
-            .collection('tires')
+            .collection('parts')
             .orderBy('id', 'asc')
             .onSnapshot(
                 (snapshot) => {
-                    let data = [];
-                    snapshot.docs.map((val) => {
-                        let doc = val.data();
-                        data.push(PartFactory.createTire(doc));
-                    });
+                    let data = snapshot.docs
+                        .map((val) => {
+                            let doc = val.data();
+                            switch (doc.category) {
+                                case 'tires':
+                                    return PartFactory.createTire(doc);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        })
+                        .filter((val) => val !== undefined);
                     set(data);
                 },
                 (e) => {
@@ -84,5 +93,5 @@ export const tires = (() => {
             unsubscribe();
         };
     });
-    return tires;
+    return parts;
 })();

@@ -3,10 +3,9 @@
     import Modal from '../shared/Modal.svelte';
     import Tile from '../shared/Tile.svelte';
     const part = $appData.part;
-    const { category, name, model, id, ...rest } = part;
+    const { category, name, model, id, ...rest } = part.dbObject();
     const handleRemove = () => {
-        const field = `${category}s`;
-        $appData.vehicle.parts[field] = null;
+        $appData.vehicle.parts[category] = null;
         modal.close();
     };
 </script>
@@ -15,7 +14,7 @@
 </style>
 
 <Modal bottomLeft={{ text: 'REMOVE' }} bottomRight on:blClick={handleRemove}>
-    <h1 class=" text-2xl italic font-bold text-center mb-4">{part.name}</h1>
+    <h1 class=" text-2xl italic font-bold text-center mb-4">{name}</h1>
 
     <div class="grid grid-cols-1 gap-2 mb-2">
         <Tile src="./assets/svg/cubes.svg"><span>CATEGORY: {category}</span></Tile>

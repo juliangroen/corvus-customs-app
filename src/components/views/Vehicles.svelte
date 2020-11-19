@@ -2,8 +2,7 @@
     import { appData, modal, vehicles } from '../../stores';
     import Tile from '../shared/Tile.svelte';
     const selectVehicle = (object) => {
-        $appData.vehicle = object;
-        console.log(object);
+        $appData.vehicle = object.dbObject();
         $appData.view = 'EditVehicle';
     };
     const handleAddVehicle = () => {
@@ -22,7 +21,7 @@
     <slot />
     {#each $vehicles as tile}
         <Tile src="../assets/svg/parts/key.svg" on:click={selectVehicle(tile)}>
-            <span>{tile.year} {tile.make} {tile.model}</span>
+            <span>{tile.getYear()} {tile.getMake()} {tile.getModel()}</span>
         </Tile>
     {/each}
 </section>

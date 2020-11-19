@@ -1,11 +1,13 @@
 import Part from './Part';
 const Tire = (id, name, model, type) => {
-    const category = 'tire';
-    const getCategory = () => category;
-    const getType = () => type;
     const parent = Part(id, name, model);
-    const dbObject = () => ({ ...parent.dbObject(), category, type });
-    return { ...parent, getCategory, getType, dbObject };
+    const category = 'tires';
+    return {
+        ...parent,
+        getCategory: () => category,
+        getType: () => type,
+        dbObject: () => ({ ...parent.dbObject(), category, type }),
+    };
 };
 
 export default Tire;

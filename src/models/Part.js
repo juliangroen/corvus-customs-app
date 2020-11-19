@@ -1,9 +1,10 @@
 const Part = (id = new Date().getTime().toString(), name, model) => {
-    const getId = () => id;
-    const getName = () => name;
-    const getModel = () => model;
-    const dbObject = () => ({ id, name, model });
-    return { getId, getName, getModel, dbObject };
+    return {
+        getId: () => id,
+        getName: () => name,
+        getModel: () => model,
+        dbObject: () => ({ id, name, model }),
+    };
 };
 
 export default Part;

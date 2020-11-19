@@ -1,25 +1,16 @@
 <script>
-    import { onMount } from 'svelte';
-
     import { firebaseDeleteItem, firebaseGetItem, firebaseSetItem } from '../../firebase';
-    import { appData, modal } from '../../stores';
+    import { appData, modal, parts } from '../../stores';
     import Page from '../shared/Page.svelte';
     import Tile from '../shared/Tile.svelte';
     $: vehicle = $appData.vehicle;
     $: ({ tires, chargers, wheels, shocks, brakes, exhausts } = vehicle.parts);
-    onMount(() => console.log(tires));
-    onMount(() => console.log(chargers));
     const svgPath = './assets/svg/parts/';
     const handlePartClick = (partKey, partVal) => {
-        const part = firebaseGetItem(partKey, partVal)
-            .then((val) => {
-                $appData.part = val.data();
-                console.log($appData.part);
-
-                modal.toggle();
-                modal.setContent('ViewPart');
-            })
-            .catch((e) => console.log(e));
+        const part = $parts.find((val) => val.getId() === partVal);
+        $appData.part = part;
+        modal.toggle();
+        modal.setContent('ViewPart');
     };
     const handlePartSearch = () => {
         modal.toggle();
@@ -41,7 +32,7 @@
     const handleSave = () => {
         let result = confirm('Are you sure you want to save changes to this vehicle?');
         if (result) {
-            const obj = vehicle.dbObject();
+            const obj = vehicle;
             firebaseSetItem('vehicles', obj)
                 .then(() => {
                     console.log(`${obj.id} was saved`);
