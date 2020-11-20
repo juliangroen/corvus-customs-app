@@ -13,6 +13,7 @@
     import AddPart from './components/views/AddPart.svelte';
     import ViewPart from './components/views/ViewPart.svelte';
     import { onDestroy, onMount } from 'svelte';
+    import PartsList from './components/views/PartsList.svelte';
 
     // Realtime Firebase User Listener
     let unsubscribe;
@@ -31,7 +32,7 @@
 
 <Tailwindcss />
 <Header />
-<main class="m-4 max-w-xl mx-auto p-2">
+<main class="m-4 max-w-xl mx-auto p-4">
     {#if $menu}
         <MobileMenu />
     {/if}
@@ -69,6 +70,8 @@
                 <EditVehicle />
             {:else if $appData.view === 'PartSearch'}
                 <PartSearch />
+            {:else if $appData.view === 'PartsList'}
+                <PartsList />
             {/if}
         </section>
     {:else}
