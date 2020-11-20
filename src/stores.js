@@ -78,7 +78,8 @@ export const parts = (() => {
                             switch (doc.category) {
                                 case 'tires':
                                     return PartFactory.createTire(doc);
-                                    break;
+                                case 'chargers':
+                                    return PartFactory.createCharger(doc);
                                 default:
                                     break;
                             }
