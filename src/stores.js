@@ -7,6 +7,7 @@ export const appData = writable({
     category: null,
     loading: true,
     part: null,
+    selectedPart: false,
     user: null,
     view: 'UserLogin',
     vehicle: null,

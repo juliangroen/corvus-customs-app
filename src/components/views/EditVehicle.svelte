@@ -1,4 +1,6 @@
 <script>
+    import { onDestroy } from 'svelte';
+
     import { firebaseDeleteItem, firebaseSetItem } from '../../firebase';
     import { appData, modal, parts } from '../../stores';
 
@@ -19,11 +21,13 @@
     const handlePartClick = (id) => {
         const part = $parts.find((val) => val.getId() === id);
         $appData.part = part;
+        $appData.selectedPart = true;
         modal.toggle();
         modal.setContent('ViewPart');
     };
 
-    const handlePartSearch = () => {
+    const handlePartSearch = (category) => {
+        $appData.category = category;
         modal.toggle();
         modal.setContent('PartSearch');
     };
@@ -47,7 +51,7 @@
             'Are you sure you want to save changes to this vehicle?'
         );
         if (result) {
-            const obj = vehicle;
+            let obj = vehicle.dbObject();
             firebaseSetItem('vehicles', obj)
                 .then(() => {
                     console.log(`${obj.id} was saved`);
@@ -58,6 +62,10 @@
                 });
         }
     };
+
+    onDestroy(() => {
+        $appData.vehicle = null;
+    });
 </script>
 
 <style>
@@ -88,32 +96,32 @@
                 box
                 empty={tires ? null : true}
                 src={`${svgPath}tires.svg`}
-                on:click={tires ? () => handlePartClick(tires) : handlePartSearch} />
+                on:click={tires ? () => handlePartClick(tires) : handlePartSearch('tires')} />
             <Tile
                 box
                 empty={chargers ? null : true}
                 src={`${svgPath}chargers.svg`}
-                on:click={chargers ? () => handlePartClick(chargers) : handlePartSearch} />
+                on:click={chargers ? () => handlePartClick(chargers) : handlePartSearch('chargers')} />
             <Tile
                 box
                 empty={wheels ? null : true}
                 src={`${svgPath}wheels.svg`}
-                on:click={wheels ? () => handlePartClick(wheels) : handlePartSearch} />
+                on:click={wheels ? () => handlePartClick(wheels) : handlePartSearch('wheels')} />
             <Tile
                 box
                 empty={shocks ? null : true}
                 src={`${svgPath}shocks.svg`}
-                on:click={shocks ? () => handlePartClick(shocks) : handlePartSearch} />
+                on:click={shocks ? () => handlePartClick(shocks) : handlePartSearch('shocks')} />
             <Tile
                 box
                 empty={brakes ? null : true}
                 src={`${svgPath}brakes.svg`}
-                on:click={brakes ? () => handlePartClick(brakes) : handlePartSearch} />
+                on:click={brakes ? () => handlePartClick(brakes) : handlePartSearch('brakes')} />
             <Tile
                 box
                 empty={exhausts ? null : true}
                 src={`${svgPath}exhausts.svg`}
-                on:click={exhausts ? () => handlePartClick(exhausts) : handlePartSearch} />
+                on:click={exhausts ? () => handlePartClick(exhausts) : handlePartSearch('exhausts')} />
         </div>
     </div>
 </Page>
