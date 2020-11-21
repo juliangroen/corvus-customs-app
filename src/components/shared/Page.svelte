@@ -9,25 +9,21 @@
     $: topLeftButton = {
         text: 'BACK',
         color: 'gray-600',
-        target: '',
         ...topLeft,
     };
     $: topRightButton = {
         text: 'ADD',
         color: 'gray-600',
-        target: '',
         ...topRight,
     };
     $: bottomLeftButton = {
         text: 'DELETE',
         color: 'red-400',
-        target: '',
         ...bottomLeft,
     };
     $: bottomRightButton = {
         text: 'SAVE',
         color: 'gray-600',
-        target: '',
         ...bottomRight,
     };
     $: topRow = topLeft || topRight ? true : false;

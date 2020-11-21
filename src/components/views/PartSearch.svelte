@@ -1,7 +1,6 @@
 <script>
     import { appData, modal, parts } from '../../stores';
-
-    import Modal from '../shared/Modal.svelte';
+    import Page from '../shared/Page.svelte';
     import SearchBar from '../shared/SearchBar.svelte';
     import Tile from '../shared/Tile.svelte';
 
@@ -47,7 +46,7 @@
 <style>
 </style>
 
-<Modal>
+<Page topLeft on:tlClick={() => modal.back()}>
     <!-- Main Heading -->
     <h1 class=" text-2xl italic font-bold text-center mb-4">Select {title()}</h1>
 
@@ -60,4 +59,4 @@
             </Tile>
         {/each}
     </div>
-</Modal>
+</Page>

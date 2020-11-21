@@ -61,15 +61,16 @@
             {:else if $modal.content === 'PartSearch'}
                 <PartSearch />
             {/if}
-            <div class="absolute inset-0 z-0 bg-gray-800 opacity-50" on:click={() => modal.back()} />
         {/if}
-        {#if $appData.view === 'Vehicles' || $appData.view == 'UserLogin'}
-            <Vehicles />
-        {:else if $appData.view === 'EditVehicle'}
-            <EditVehicle />
-        {:else if $appData.view === 'PartSearch'}
-            <PartSearch />
-        {/if}
+        <section class={$modal.status ? 'hidden' : null}>
+            {#if $appData.view === 'Vehicles' || $appData.view == 'UserLogin'}
+                <Vehicles />
+            {:else if $appData.view === 'EditVehicle'}
+                <EditVehicle />
+            {:else if $appData.view === 'PartSearch'}
+                <PartSearch />
+            {/if}
+        </section>
     {:else}
         <UserLogin />
     {/if}

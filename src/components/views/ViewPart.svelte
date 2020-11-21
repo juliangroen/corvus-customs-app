@@ -1,10 +1,8 @@
 <script>
     import { onDestroy } from 'svelte';
-
     import VehicleFactory from '../../models/VehicleFactory';
-
     import { appData, modal } from '../../stores';
-    import Modal from '../shared/Modal.svelte';
+    import Page from '../shared/Page.svelte';
     import Tile from '../shared/Tile.svelte';
 
     const part = $appData.part;
@@ -33,9 +31,11 @@
 <style>
 </style>
 
-<Modal
+<Page
+    topLeft
     bottomLeft={$appData.selectedPart ? { text: 'REMOVE' } : null}
     bottomRight={$appData.selectedPart ? null : true}
+    on:tlClick={() => modal.back()}
     on:blClick={handleRemove}
     on:brClick={$appData.selectedPart ? null : handleSelect}>
     <h1 class=" text-2xl italic font-bold text-center mb-4">{name}</h1>
@@ -48,4 +48,4 @@
             <Tile src="./assets/svg/cubes.svg"><span>{fieldKey.toUpperCase()}: {fieldVal}</span></Tile>
         {/each}
     </div>
-</Modal>
+</Page>

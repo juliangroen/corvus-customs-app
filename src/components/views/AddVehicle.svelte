@@ -1,8 +1,8 @@
 <script>
     import { appData, modal } from '../../stores';
-    import Modal from '../shared/Modal.svelte';
     import VehicleFactory from '../../models/VehicleFactory';
     import { firebaseAddVehicle } from '../../firebase';
+    import Page from '../shared/Page.svelte';
     $: year = '';
     $: make = '';
     $: model = '';
@@ -28,7 +28,7 @@
 <style>
 </style>
 
-<Modal>
+<Page>
     <h1 class=" text-2xl italic font-bold text-center mb-4">Add New Vehicle</h1>
     <form class="grid grid-col-1 gap-2" on:submit|preventDefault={handleSubmit}>
         <label class="font-bold" for="year">Year:</label>
@@ -57,4 +57,4 @@
         <span class="text-red-300 italic mx-auto">Validation Message</span>
         <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
     </form>
-</Modal>
+</Page>
