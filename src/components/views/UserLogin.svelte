@@ -89,12 +89,10 @@
         type="text"
         name="email"
         bind:value={email}
-        placeholder="please enter your username"
+        placeholder="please enter your email"
         on:change={validateEmail} />
 
-    {#if emailError}
-        <span class="text-red-300 italic mx-auto">{emailError}</span>
-    {/if}
+    {#if emailError}<span class="text-red-300 italic mx-auto">{emailError}</span>{/if}
     <label class="font-bold" for="password">Password:</label>
     <input
         class="bg-white rounded-full placeholder-gray-300 border-2 border-transparent focus:outline-none focus:border-gray-400 px-4 py-2 mb-2"
@@ -104,13 +102,7 @@
         placeholder="please enter your password"
         on:change={validatePassword} />
 
-    {#if passError}
-        <span class="text-red-300 italic mx-auto">{passError}</span>
-    {/if}
-    <button
-        class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
-    {#if loginError}
-        <span class="text-red-300 italic text-center mx-auto">Login Error:
-            {loginError}</span>
-    {/if}
+    {#if passError}<span class="text-red-300 italic mx-auto">{passError}</span>{/if}
+    <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+    {#if loginError}<span class="text-red-300 italic text-center mx-auto">Login Error: {loginError}</span>{/if}
 </form>

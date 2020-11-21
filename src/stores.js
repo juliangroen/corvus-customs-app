@@ -6,6 +6,11 @@ import PartFactory from './models/PartFactory';
 export const appData = writable({
     category: null,
     loading: true,
+    menuLinks: [
+        { name: 'Vehicles', target: 'Vehicles' },
+        { name: 'Parts', target: 'PartsList' },
+        { name: 'Reports', target: 'AdminReports' },
+    ],
     part: null,
     selectedPart: false,
     user: null,
