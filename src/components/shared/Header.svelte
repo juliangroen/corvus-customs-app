@@ -14,13 +14,11 @@
         on:click={() => {
             $appData.view = home;
             menu.close();
-            modal.close();
+            modal.back();
         }}>
         <Logo size="38" />
     </div>
-    <div
-        class="absolute right-0 cursor-pointer h-12 w-12 p-2"
-        on:click={menu.toggle}>
+    <div class="absolute right-0 cursor-pointer h-12 w-12 p-2" on:click={menu.toggle}>
         <MenuIcon size="32" clicked={$menu} />
     </div>
 </header>

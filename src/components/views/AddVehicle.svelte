@@ -15,7 +15,7 @@
         $appData.loading = true;
         await firebaseAddVehicle(newObj.dbObject())
             .then(() => {
-                modal.toggle();
+                modal.back();
                 $appData.view = 'Vehicles';
             })
             .catch((e) => {
@@ -55,7 +55,6 @@
             bind:value={model}
             placeholder="please enter a model" />
         <span class="text-red-300 italic mx-auto">Validation Message</span>
-        <button
-            class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+        <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
     </form>
 </Modal>

@@ -20,12 +20,14 @@
 <style>
 </style>
 
+{console.log($modal.previous)}
+
 <!-- top button row -->
 
 <div class="relative h-10 mb-2">
     <span
         class="absolute right-0 cursor-pointer bg-gray-600 text-white text-center leading-10 rounded-full w-10"
-        on:click={modal.close}>X</span>
+        on:click={modal.back}>X</span>
 </div>
 
 <!-- main content -->

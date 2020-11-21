@@ -25,16 +25,33 @@ export const menu = (() => {
 export const modal = (() => {
     const { subscribe, set, update } = writable({
         status: false,
-        data: { content: '' },
+        content: '',
+        previous: [],
     });
     return {
         subscribe,
-        toggle: () => update((val) => ({ ...val, status: !val.status })),
-        close: () => update((val) => ({ ...val, status: false })),
+        open: () => update((val) => ({ ...val, status: true })),
+        hardClose: () => update((val) => ({ ...val, status: false, content: '', previous: [] })),
+        back: () => {
+            update((val) => {
+                if (val.previous.length > 0) {
+                    let array = val.previous;
+                    let prev = array.pop();
+                    let newData = { ...val, content: prev, previous: array };
+                    return newData;
+                } else {
+                    return { ...val, status: false, content: '' };
+                }
+            });
+        },
         setContent: (string) =>
             update((val) => {
-                let newData = { ...val.data, content: string };
-                return { ...val, data: newData };
+                let newData = {
+                    ...val,
+                    content: string,
+                    previous: val.content !== '' ? [...val.previous, val.content] : val.previous,
+                };
+                return newData;
             }),
     };
 })();

@@ -13,7 +13,6 @@
     import AddPart from './components/views/AddPart.svelte';
     import ViewPart from './components/views/ViewPart.svelte';
     import { onDestroy, onMount } from 'svelte';
-    import PartsList from './components/views/GenerateParts.svelte';
 
     // Realtime Firebase User Listener
     let unsubscribe;
@@ -53,13 +52,13 @@
         </div>
     {:else if $appData.user}
         {#if $modal.status}
-            {#if $modal.data.content === 'AddVehicle'}
+            {#if $modal.content === 'AddVehicle'}
                 <AddVehicle />
-            {:else if $modal.data.content === 'AddPart'}
+            {:else if $modal.content === 'AddPart'}
                 <AddPart />
-            {:else if $modal.data.content === 'ViewPart'}
+            {:else if $modal.content === 'ViewPart'}
                 <ViewPart />
-            {:else if $modal.data.content === 'PartSearch'}
+            {:else if $modal.content === 'PartSearch'}
                 <PartSearch />
             {/if}
         {/if}

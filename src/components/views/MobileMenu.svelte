@@ -20,7 +20,7 @@
     const handleLink = (link) => {
         $appData.view = link.target;
         menu.close();
-        modal.close();
+        modal.back();
     };
 </script>
 
@@ -30,13 +30,10 @@
     }
 </style>
 
-<div
-    class="absolute inset-0 z-40 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full pt-12">
+<div class="absolute inset-0 z-40 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full pt-12">
     <section class="mt-8">
         {#each links as link}
-            <div class="cursor-pointer mb-8" on:click={() => handleLink(link)}>
-                {link.name.toUpperCase()}
-            </div>
+            <div class="cursor-pointer mb-8" on:click={() => handleLink(link)}>{link.name.toUpperCase()}</div>
         {/each}
     </section>
     <footer class="absolute bottom-0 w-full h-24">
@@ -49,16 +46,9 @@
         <div class="xs absolute bottom-0 text-center text-gray-400 w-full mb-3">
             <div>©2020 Corvus Customs</div>
             <span>Icons made by</span>
-            <a
-                class="text-gray-200"
-                href="https://www.flaticon.com/authors/freepik"
-                title="Freepik">Freepik</a>
+            <a class="text-gray-200" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
             from
-            <a
-                class="text-gray-200"
-                href="https://www.flaticon.com/"
-                title="Flaticon">
-                www.flaticon.com</a>
+            <a class="text-gray-200" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
         </div>
     </footer>
 </div>

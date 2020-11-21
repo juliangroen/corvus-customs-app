@@ -13,6 +13,11 @@
         modal.setContent('ViewPart');
     };
 
+    const handleSearch = (event) => {
+        const query = event.detail;
+        filtered = filtered.filter((part) => part.getName().toLowerCase().includes(query.toLowerCase()));
+    };
+
     const title = () => {
         switch (category) {
             case 'tires':
@@ -44,18 +49,13 @@
 
 <Modal>
     <!-- Main Heading -->
-    <h1 class=" text-2xl italic font-bold text-center mb-4">
-        Select
-        {title()}
-    </h1>
+    <h1 class=" text-2xl italic font-bold text-center mb-4">Select {title()}</h1>
 
-    <SearchBar />
+    <SearchBar on:handleSearch={handleSearch} />
 
     <div class="grid grid-cols-1 gap-2 mb-2">
         {#each filtered as part}
-            <Tile
-                src="../assets/svg/parts/{part.getCategory()}.svg"
-                on:click={() => handlePartClick(part)}>
+            <Tile src="../assets/svg/parts/{part.getCategory()}.svg" on:click={() => handlePartClick(part)}>
                 {part.getName()}
             </Tile>
         {/each}

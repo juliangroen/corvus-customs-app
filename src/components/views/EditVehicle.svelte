@@ -9,26 +9,19 @@
     const svgPath = './assets/svg/parts/';
 
     $: vehicle = $appData.vehicle;
-    $: ({
-        tires,
-        chargers,
-        wheels,
-        shocks,
-        brakes,
-        exhausts,
-    } = vehicle.getParts());
+    $: ({ tires, chargers, wheels, shocks, brakes, exhausts } = vehicle.getParts());
 
     const handlePartClick = (id) => {
         const part = $parts.find((val) => val.getId() === id);
         $appData.part = part;
         $appData.selectedPart = true;
-        modal.toggle();
+        modal.open();
         modal.setContent('ViewPart');
     };
 
     const handlePartSearch = (category) => {
         $appData.category = category;
-        modal.toggle();
+        modal.open();
         modal.setContent('PartSearch');
     };
 
@@ -47,9 +40,7 @@
     };
 
     const handleSave = () => {
-        let result = confirm(
-            'Are you sure you want to save changes to this vehicle?'
-        );
+        let result = confirm('Are you sure you want to save changes to this vehicle?');
         if (result) {
             let obj = vehicle.dbObject();
             firebaseSetItem('vehicles', obj)
@@ -79,16 +70,10 @@
     on:blClick={handleDelete}
     on:brClick={handleSave}>
     <!-- Main Heading -->
-    <h1 class=" text-2xl italic font-bold text-center mb-4">
-        Customize Vehicle
-    </h1>
+    <h1 class=" text-2xl italic font-bold text-center mb-4">Customize Vehicle</h1>
 
     <Tile src="./assets/svg/parts/key.svg">
-        <span>
-            {vehicle.getYear()}
-            {vehicle.getMake()}
-            {vehicle.getModel()}
-        </span>
+        <span> {vehicle.getYear()} {vehicle.getMake()} {vehicle.getModel()} </span>
     </Tile>
     <div class="mt-2">
         <div class="grid grid-cols-3 gap-2 mb-2">
