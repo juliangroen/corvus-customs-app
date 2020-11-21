@@ -13,7 +13,7 @@
     import AddPart from './components/views/AddPart.svelte';
     import ViewPart from './components/views/ViewPart.svelte';
     import { onDestroy, onMount } from 'svelte';
-    import PartsList from './components/views/PartsList.svelte';
+    import PartsList from './components/views/GenerateParts.svelte';
 
     // Realtime Firebase User Listener
     let unsubscribe;
@@ -70,8 +70,6 @@
                 <EditVehicle />
             {:else if $appData.view === 'PartSearch'}
                 <PartSearch />
-            {:else if $appData.view === 'PartsList'}
-                <PartsList />
             {/if}
         </section>
     {:else}

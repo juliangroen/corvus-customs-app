@@ -80,6 +80,14 @@ export const parts = (() => {
                                     return PartFactory.createTire(doc);
                                 case 'chargers':
                                     return PartFactory.createCharger(doc);
+                                case 'wheels':
+                                    return PartFactory.createWheel(doc);
+                                case 'shocks':
+                                    return PartFactory.createShock(doc);
+                                case 'brakes':
+                                    return PartFactory.createBrake(doc);
+                                case 'exhausts':
+                                    return PartFactory.createExhaust(doc);
                                 default:
                                     break;
                             }

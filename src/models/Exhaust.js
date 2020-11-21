@@ -1,7 +1,7 @@
 import Part from './Part';
 const Exhaust = (id, name, model, type) => {
     const parent = Part(id, name, model);
-    const category = 'brakes';
+    const category = 'exhausts';
     return {
         ...parent,
         getCategory: () => category,

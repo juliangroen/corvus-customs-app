@@ -30,8 +30,8 @@ export const firebaseGetItem = async (collection, id) => {
 };
 
 // Universal Set Function
-export const firebaseSetItem = async (colletion, obj) => {
-    return await db.collection(colletion).doc(obj.id).set(obj);
+export const firebaseSetItem = async (collection, obj) => {
+    return await db.collection(collection).doc(obj.id).set(obj);
 };
 
 // Universal Delete Function

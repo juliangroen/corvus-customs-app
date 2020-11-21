@@ -1,6 +1,4 @@
 <script>
-    import { onMount } from 'svelte';
-
     import { appData, modal, parts } from '../../stores';
 
     import Modal from '../shared/Modal.svelte';

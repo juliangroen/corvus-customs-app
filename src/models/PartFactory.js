@@ -1,12 +1,16 @@
 import Charger from './Charger';
 import Tire from './Tire';
+import Wheel from './Wheel';
+import Shock from './Shock';
+import Brake from './Brake';
+import Exhaust from './Exhaust';
 
 const PartFactory = (() => {
     const createTire = (obj) => {
         return Object.seal(Tire(obj.id, obj.name, obj.model, obj.type));
     };
     const createCharger = (obj) => {
-        return Object.seal(Charger(obj.id, obj.name, obj.model, obj.boost));
+        return Object.seal(Charger(obj.id, obj.name, obj.model, obj.type, obj.boost));
     };
     const createWheel = (obj) => {
         return Object.seal(Wheel(obj.id, obj.name, obj.model, obj.size));
