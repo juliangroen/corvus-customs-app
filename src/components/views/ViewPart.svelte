@@ -1,5 +1,6 @@
 <script>
     import { onDestroy } from 'svelte';
+    import { firebaseDeleteItem } from '../../firebase';
     import VehicleFactory from '../../models/VehicleFactory';
     import { appData, modal } from '../../stores';
     import Page from '../shared/Page.svelte';
@@ -22,6 +23,19 @@
         modal.back();
     };
 
+    const handleDelete = () => {
+        const result = confirm(`Are you sure you want to delete "${name}" from the database?`);
+        if (result) {
+            firebaseDeleteItem('parts', id)
+                .then(() => {
+                    modal.back();
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+    };
+
     onDestroy(() => {
         $appData.selectedPart = false;
         $appData.part = null;
@@ -33,10 +47,10 @@
 
 <Page
     topLeft
-    bottomLeft={$appData.selectedPart ? { text: 'REMOVE' } : null}
+    bottomLeft={$appData.selectedPart ? { text: 'REMOVE' } : true}
     bottomRight={$appData.selectedPart ? null : true}
     on:tlClick={() => modal.back()}
-    on:blClick={handleRemove}
+    on:blClick={$appData.selectedPart ? handleRemove : handleDelete}
     on:brClick={$appData.selectedPart ? null : handleSelect}>
     <h1 class=" text-2xl italic font-bold text-center mb-4">{name}</h1>
 
