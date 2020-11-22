@@ -29,8 +29,8 @@ export const menu = (() => {
 
 export const modal = (() => {
     const { subscribe, set, update } = writable({
-        status: true,
-        content: 'AddVehicle',
+        status: false,
+        content: '',
         previous: [],
     });
     return {

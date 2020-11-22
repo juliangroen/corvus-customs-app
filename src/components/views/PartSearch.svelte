@@ -6,15 +6,23 @@
 
     $: category = $appData.category;
     $: filtered = $parts.filter((part) => part.getCategory() === category);
+    $: searchActive = false;
 
     const handlePartClick = (part) => {
         $appData.part = part;
         modal.setContent('ViewPart');
     };
 
+    const clearSearch = () => {
+        searchActive = false;
+        filtered = $parts.filter((part) => part.getCategory() === category);
+    };
+
     const handleSearch = (event) => {
+        clearSearch();
         const query = event.detail;
         filtered = filtered.filter((part) => part.getName().toLowerCase().includes(query.toLowerCase()));
+        searchActive = true;
     };
 
     const title = () => {
@@ -53,6 +61,11 @@
     <SearchBar on:handleSearch={handleSearch} />
 
     <div class="grid grid-cols-1 gap-2 mb-2">
+        {#if searchActive}
+            <div class="bg-gray-400 text-center rounded-full cursor-pointer p-4" on:click={clearSearch}>
+                CLEAR SEARCH
+            </div>
+        {/if}
         {#each filtered as part}
             <Tile src="../assets/svg/parts/{part.getCategory()}.svg" on:click={() => handlePartClick(part)}>
                 {part.getName()}

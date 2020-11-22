@@ -2,7 +2,10 @@
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
     $: query = '';
-    const handleClick = () => dispatch('handleSearch', query.trim());
+    const handleClick = () => {
+        dispatch('handleSearch', query.trim());
+        query = '';
+    };
 </script>
 
 <style>
