@@ -1,10 +1,37 @@
 <script>
+    import { firebaseGetItem } from '../../firebase';
+    import VehicleFactory from '../../models/VehicleFactory';
     import { appData, modal, vehicles } from '../../stores';
     import Tile from '../shared/Tile.svelte';
-    const selectVehicle = (object) => {
-        $appData.vehicle = object;
-        $appData.view = 'EditVehicle';
+
+    const selectVehicle = async (vehicle) => {
+        $appData.loading = true;
+        let changed = vehicle.dbObject();
+        await Promise.all(
+            Object.entries(changed.parts).map(async (item) => {
+                const [key, value] = item;
+                if (value !== null) {
+                    const part = await firebaseGetItem('parts', value);
+                    if (part.data() !== undefined) {
+                        changed.parts[key] = part.data().id;
+                    } else {
+                        changed.parts[key] = null;
+                    }
+                } else {
+                    changed.parts[key] = null;
+                }
+            })
+        )
+            .then(() => {
+                $appData.loading = false;
+                $appData.vehicle = VehicleFactory.createVehicle(changed);
+                $appData.view = 'EditVehicle';
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
+
     const handleAddVehicle = () => {
         modal.open();
         modal.setContent('AddVehicle');

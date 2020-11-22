@@ -36,7 +36,7 @@
         <MobileMenu />
     {/if}
     {#if $appData.loading}
-        <div class="text-gray-400">
+        <div class="absolute inset-0 text-gray-400 max-w-xs md:max-w-sm mx-auto mt-16">
             <svg
                 class="animate-spin"
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,7 @@
 <script>
     import { onDestroy } from 'svelte';
-
     import { firebaseDeleteItem, firebaseSetItem } from '../../firebase';
     import { appData, modal, parts } from '../../stores';
-
     import Page from '../shared/Page.svelte';
     import Tile from '../shared/Tile.svelte';
     const svgPath = './assets/svg/parts/';
