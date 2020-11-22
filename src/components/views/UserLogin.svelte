@@ -5,16 +5,17 @@
     $: emailError = null;
     $: passError = null;
     $: loginError = null;
-    $: handleLogin = async () => {
+    $: handleLogin = () => {
         if (validateEmail()) {
             if (validatePassword()) {
                 loginError = null;
                 emailError = null;
                 passError = null;
-                let result = await firebaseSignIn(email, password);
-                if (typeof result == 'string') {
-                    loginError = result;
-                }
+                firebaseSignIn(email, password).then((res) => {
+                    if (typeof res === 'string') {
+                        loginError = res;
+                    }
+                });
             }
         }
     };
@@ -39,7 +40,6 @@
         passError = null;
         let pass = true;
         if (password === '') {
-            console.log('made it');
             pass = false;
             passError = 'Please enter a password';
         }
