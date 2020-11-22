@@ -1,13 +1,11 @@
 <script>
     import { firebaseSignIn } from '../../firebase';
-    import { appData } from '../../stores';
     $: email = '';
     $: password = '';
     $: emailError = null;
     $: passError = null;
     $: loginError = null;
     $: handleLogin = async () => {
-        //if (validateEmail() && validatePassword()) {
         if (validateEmail()) {
             if (validatePassword()) {
                 loginError = null;
@@ -24,7 +22,7 @@
         loginError = null;
         emailError = null;
         let pass = true;
-        if (email == '') {
+        if (email === '') {
             pass = false;
             emailError = 'Please enter an email';
         } else {
@@ -40,41 +38,12 @@
         loginError = null;
         passError = null;
         let pass = true;
-        if (password == '') {
+        if (password === '') {
             console.log('made it');
             pass = false;
             passError = 'Please enter a password';
         }
         return pass;
-    };
-    const validateFields = () => {
-        emailError = null;
-        passError = null;
-        let pass = true;
-        if (email == '') {
-            pass = false;
-            loginError = null;
-            emailError = 'Please enter an email';
-        } else {
-            const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (!email.match(pattern)) {
-                pass = false;
-                emailError = 'Please enter a valid email';
-            }
-        }
-        if (password == '') {
-            pass = false;
-            loginError = null;
-            passError = 'Please enter a password';
-        }
-        if (pass == true) {
-            loginError = null;
-            emailError = null;
-            passError = null;
-            return true;
-        } else {
-            return false;
-        }
     };
 </script>
 
