@@ -25,6 +25,10 @@
         searchActive = true;
     };
 
+    const handleAdd = () => {
+        modal.setContent('AddPart');
+    };
+
     const title = () => {
         switch (category) {
             case 'tires':
@@ -54,7 +58,7 @@
 <style>
 </style>
 
-<Page topLeft on:tlClick={() => modal.back()}>
+<Page topLeft topRight={$appData.selectedPart ? null : true} on:tlClick={() => modal.back()} on:trClick={handleAdd}>
     <!-- Main Heading -->
     <h1 class=" text-2xl italic font-bold text-center mb-4">Select {title()}</h1>
 
