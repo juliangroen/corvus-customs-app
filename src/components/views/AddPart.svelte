@@ -33,13 +33,13 @@
     $: caliperError = null;
 
     $: partObject = {
-        name,
-        model,
-        type,
-        boost,
-        size,
-        rotor,
-        caliper,
+        name: name.trim(),
+        model: model.trim(),
+        type: type.trim(),
+        boost: boost.trim(),
+        size: size.trim(),
+        rotor: rotor.trim(),
+        caliper: caliper.trim(),
     };
 
     const validateName = () => {
