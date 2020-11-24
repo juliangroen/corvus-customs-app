@@ -1,5 +1,7 @@
 <script>
     import { onMount } from 'svelte';
+    import { firebaseSetItem } from '../../firebase';
+    import PartFactory from '../../models/PartFactory';
     import { appData, modal } from '../../stores';
     import Page from '../shared/Page.svelte';
 
@@ -28,6 +30,16 @@
     $: rotorError = null;
     $: caliper = '';
     $: caliperError = null;
+
+    $: partObject = {
+        name,
+        model,
+        type,
+        boost,
+        size,
+        rotor,
+        caliper,
+    };
 
     const validateName = () => {
         nameError = null;
@@ -99,52 +111,57 @@
         return pass;
     };
 
+    const submitPart = (part) => {
+        firebaseSetItem('parts', part.dbObject())
+            .then(() => {
+                modal.back();
+            })
+            .catch((e) => console.log(e));
+    };
+
     const handleSubmit = () => {
         if (validateName()) {
             if (validateModel()) {
                 switch (partCategory) {
                     case 'tires':
                         if (validateType()) {
-                            alert('submitted');
+                            submitPart(PartFactory.createTire(partObject));
                         }
                         break;
 
                     case 'chargers':
                         if (validateType()) {
                             if (validateBoost()) {
-                                // submit
-                                alert('submitted');
+                                submitPart(
+                                    PartFactory.createCharger(partObject)
+                                );
                             }
                         }
                         break;
 
                     case 'wheels':
                         if (validateSize()) {
-                            // submit
-                            alert('submitted');
+                            submitPart(PartFactory.createWheel(partObject));
                         }
                         break;
 
                     case 'shocks':
                         if (validateType()) {
-                            // submit
-                            alert('submitted');
+                            submitPart(PartFactory.createShock(partObject));
                         }
                         break;
 
                     case 'brakes':
                         if (validateRotor()) {
                             if (validateCaliper()) {
-                                // submit
-                                alert('submitted');
+                                submitPart(PartFactory.createBrake(partObject));
                             }
                         }
                         break;
 
                     case 'exhausts':
                         if (validateType()) {
-                            // submit
-                            alert('submitted');
+                            submitPart(PartFactory.createExhaust(partObject));
                         }
                         break;
 
@@ -156,7 +173,9 @@
     };
 
     onMount(() => {
-        categoryTitle = `${partCategory.charAt(0).toUpperCase()}${partCategory.substr(1, partCategory.length - 2)}`;
+        categoryTitle = `${partCategory
+            .charAt(0)
+            .toUpperCase()}${partCategory.substr(1, partCategory.length - 2)}`;
     });
 </script>
 
@@ -168,7 +187,10 @@
     on:tlClick={() => {
         modal.back();
     }}>
-    <h1 class=" text-2xl italic font-bold text-center mb-4">Add New {categoryTitle}</h1>
+    <h1 class=" text-2xl italic font-bold text-center mb-4">
+        Add New
+        {categoryTitle}
+    </h1>
     <form class="grid grid-col-1 gap-2" on:submit|preventDefault={handleSubmit}>
         <label class="font-bold" for="category">Category:</label>
         <input
@@ -186,7 +208,9 @@
             bind:value={name}
             on:change={validateName}
             placeholder="please enter a name" />
-        {#if nameError}<span class="text-red-300 italic mx-auto">{nameError}</span>{/if}
+        {#if nameError}
+            <span class="text-red-300 italic mx-auto">{nameError}</span>
+        {/if}
 
         <label class="font-bold" for="model-number">Model Number:</label>
         <input
@@ -196,7 +220,9 @@
             bind:value={model}
             on:change={validateModel}
             placeholder="please enter a model number" />
-        {#if modelError}<span class="text-red-300 italic mx-auto">{modelError}</span>{/if}
+        {#if modelError}
+            <span class="text-red-300 italic mx-auto">{modelError}</span>
+        {/if}
 
         {#if partCategory === 'tires' || partCategory === 'chargers' || partCategory === 'shocks' || partCategory === 'exhausts'}
             <label class="font-bold" for="type">Type:</label>
@@ -207,7 +233,9 @@
                 bind:value={type}
                 on:change={validateType}
                 placeholder="please enter a type" />
-            {#if typeError}<span class="text-red-300 italic mx-auto">{typeError}</span>{/if}
+            {#if typeError}
+                <span class="text-red-300 italic mx-auto">{typeError}</span>
+            {/if}
         {/if}
 
         {#if partCategory === 'chargers'}
@@ -219,7 +247,9 @@
                 bind:value={boost}
                 on:change={validateBoost}
                 placeholder="please enter a boost amount" />
-            {#if boostError}<span class="text-red-300 italic mx-auto">{boostError}</span>{/if}
+            {#if boostError}
+                <span class="text-red-300 italic mx-auto">{boostError}</span>
+            {/if}
         {/if}
 
         {#if partCategory === 'wheels'}
@@ -231,7 +261,9 @@
                 bind:value={size}
                 on:change={validateSize}
                 placeholder="please enter a size" />
-            {#if sizeError}<span class="text-red-300 italic mx-auto">{sizeError}</span>{/if}
+            {#if sizeError}
+                <span class="text-red-300 italic mx-auto">{sizeError}</span>
+            {/if}
         {/if}
 
         {#if partCategory === 'brakes'}
@@ -243,7 +275,9 @@
                 bind:value={rotor}
                 on:change={validateRotor}
                 placeholder="please enter a rotor type" />
-            {#if rotorError}<span class="text-red-300 italic mx-auto">{rotorError}</span>{/if}
+            {#if rotorError}
+                <span class="text-red-300 italic mx-auto">{rotorError}</span>
+            {/if}
 
             <label class="font-bold" for="caliper">Caliper Type:</label>
             <input
@@ -253,8 +287,11 @@
                 bind:value={caliper}
                 on:change={validateCaliper}
                 placeholder="please enter a caliper type" />
-            {#if caliperError}<span class="text-red-300 italic mx-auto">{caliperError}</span>{/if}
+            {#if caliperError}
+                <span class="text-red-300 italic mx-auto">{caliperError}</span>
+            {/if}
         {/if}
-        <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+        <button
+            class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
     </form>
 </Page>
