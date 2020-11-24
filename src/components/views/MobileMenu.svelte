@@ -14,7 +14,7 @@
     const handleLink = (link) => {
         $appData.view = link.target;
         menu.close();
-        modal.back();
+        modal.hardClose();
     };
 </script>
 
