@@ -1,10 +1,11 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
     import { firebaseSetItem } from '../../firebase';
     import PartFactory from '../../models/PartFactory';
     import { appData, modal } from '../../stores';
     import Page from '../shared/Page.svelte';
 
+    $: editMode = $appData.partEdit;
     $: partCategory = $appData.category;
     // Used by all categories:
     $: categoryTitle = '';
@@ -122,6 +123,9 @@
     const handleSubmit = () => {
         if (validateName()) {
             if (validateModel()) {
+                if (editMode) {
+                    partObject.id = $appData.part.dbObject().id;
+                }
                 switch (partCategory) {
                     case 'tires':
                         if (validateType()) {
@@ -132,9 +136,7 @@
                     case 'chargers':
                         if (validateType()) {
                             if (validateBoost()) {
-                                submitPart(
-                                    PartFactory.createCharger(partObject)
-                                );
+                                submitPart(PartFactory.createCharger(partObject));
                             }
                         }
                         break;
@@ -173,9 +175,23 @@
     };
 
     onMount(() => {
-        categoryTitle = `${partCategory
-            .charAt(0)
-            .toUpperCase()}${partCategory.substr(1, partCategory.length - 2)}`;
+        categoryTitle = `${partCategory.charAt(0).toUpperCase()}${partCategory.substr(1, partCategory.length - 2)}`;
+        if (editMode) {
+            const currentPart = $appData.part.dbObject();
+            name = currentPart.name;
+            model = currentPart.model;
+            type = currentPart.type ? currentPart.type : '';
+            boost = currentPart.boost ? currentPart.boost : '';
+            size = currentPart.size ? currentPart.size : '';
+            rotor = currentPart.rotor ? currentPart.rotor : '';
+            caliper = currentPart.caliper ? currentPart.caliper : '';
+        }
+    });
+    onDestroy(() => {
+        if (editMode) {
+            modal.back();
+        }
+        $appData.partEdit = false;
     });
 </script>
 
@@ -187,10 +203,11 @@
     on:tlClick={() => {
         modal.back();
     }}>
-    <h1 class=" text-2xl italic font-bold text-center mb-4">
-        Add New
-        {categoryTitle}
-    </h1>
+    {#if editMode}
+        <h1 class=" text-2xl italic font-bold text-center mb-4">Edit {categoryTitle}</h1>
+    {:else}
+        <h1 class=" text-2xl italic font-bold text-center mb-4">Add New {categoryTitle}</h1>
+    {/if}
     <form class="grid grid-col-1 gap-2" on:submit|preventDefault={handleSubmit}>
         <label class="font-bold" for="category">Category:</label>
         <input
@@ -208,9 +225,7 @@
             bind:value={name}
             on:change={validateName}
             placeholder="please enter a name" />
-        {#if nameError}
-            <span class="text-red-300 italic mx-auto">{nameError}</span>
-        {/if}
+        {#if nameError}<span class="text-red-300 italic mx-auto">{nameError}</span>{/if}
 
         <label class="font-bold" for="model-number">Model Number:</label>
         <input
@@ -220,9 +235,7 @@
             bind:value={model}
             on:change={validateModel}
             placeholder="please enter a model number" />
-        {#if modelError}
-            <span class="text-red-300 italic mx-auto">{modelError}</span>
-        {/if}
+        {#if modelError}<span class="text-red-300 italic mx-auto">{modelError}</span>{/if}
 
         {#if partCategory === 'tires' || partCategory === 'chargers' || partCategory === 'shocks' || partCategory === 'exhausts'}
             <label class="font-bold" for="type">Type:</label>
@@ -233,9 +246,7 @@
                 bind:value={type}
                 on:change={validateType}
                 placeholder="please enter a type" />
-            {#if typeError}
-                <span class="text-red-300 italic mx-auto">{typeError}</span>
-            {/if}
+            {#if typeError}<span class="text-red-300 italic mx-auto">{typeError}</span>{/if}
         {/if}
 
         {#if partCategory === 'chargers'}
@@ -247,9 +258,7 @@
                 bind:value={boost}
                 on:change={validateBoost}
                 placeholder="please enter a boost amount" />
-            {#if boostError}
-                <span class="text-red-300 italic mx-auto">{boostError}</span>
-            {/if}
+            {#if boostError}<span class="text-red-300 italic mx-auto">{boostError}</span>{/if}
         {/if}
 
         {#if partCategory === 'wheels'}
@@ -261,9 +270,7 @@
                 bind:value={size}
                 on:change={validateSize}
                 placeholder="please enter a size" />
-            {#if sizeError}
-                <span class="text-red-300 italic mx-auto">{sizeError}</span>
-            {/if}
+            {#if sizeError}<span class="text-red-300 italic mx-auto">{sizeError}</span>{/if}
         {/if}
 
         {#if partCategory === 'brakes'}
@@ -275,9 +282,7 @@
                 bind:value={rotor}
                 on:change={validateRotor}
                 placeholder="please enter a rotor type" />
-            {#if rotorError}
-                <span class="text-red-300 italic mx-auto">{rotorError}</span>
-            {/if}
+            {#if rotorError}<span class="text-red-300 italic mx-auto">{rotorError}</span>{/if}
 
             <label class="font-bold" for="caliper">Caliper Type:</label>
             <input
@@ -287,11 +292,8 @@
                 bind:value={caliper}
                 on:change={validateCaliper}
                 placeholder="please enter a caliper type" />
-            {#if caliperError}
-                <span class="text-red-300 italic mx-auto">{caliperError}</span>
-            {/if}
+            {#if caliperError}<span class="text-red-300 italic mx-auto">{caliperError}</span>{/if}
         {/if}
-        <button
-            class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+        <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
     </form>
 </Page>

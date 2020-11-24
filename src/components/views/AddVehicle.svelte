@@ -3,7 +3,7 @@
     import VehicleFactory from '../../models/VehicleFactory';
     import { firebaseAddVehicle, firebaseSetItem } from '../../firebase';
     import Page from '../shared/Page.svelte';
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
     $: editMode = $appData.vehicleEdit;
     $: year = '';
     $: make = '';
@@ -95,6 +95,9 @@
             make = vehicle.make;
             model = vehicle.model;
         }
+    });
+    onDestroy(() => {
+        $appData.vehicleEdit = false;
     });
 </script>
 
