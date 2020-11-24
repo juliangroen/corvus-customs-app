@@ -52,6 +52,12 @@
         }
     };
 
+    const handleEdit = () => {
+        $appData.vehicleEdit = true;
+        modal.open();
+        modal.setContent('AddVehicle');
+    };
+
     onDestroy(() => {
         $appData.vehicle = null;
     });
@@ -62,9 +68,11 @@
 
 <Page
     topLeft
+    topRight={{ text: 'EDIT' }}
     bottomLeft
     bottomRight
     on:tlClick={() => ($appData.view = 'Vehicles')}
+    on:trClick={handleEdit}
     on:blClick={handleDelete}
     on:brClick={handleSave}>
     <!-- Main Heading -->

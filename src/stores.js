@@ -12,10 +12,12 @@ export const appData = writable({
         { name: 'Reports', target: 'AdminReports' },
     ],
     part: null,
+    partEdit: false,
     selectedPart: false,
     user: null,
     view: 'UserLogin',
     vehicle: null,
+    vehicleEdit: false,
 });
 
 export const menu = (() => {

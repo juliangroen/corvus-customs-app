@@ -1,19 +1,21 @@
 <script>
     import { appData, modal } from '../../stores';
     import VehicleFactory from '../../models/VehicleFactory';
-    import { firebaseAddVehicle } from '../../firebase';
+    import { firebaseAddVehicle, firebaseSetItem } from '../../firebase';
     import Page from '../shared/Page.svelte';
+    import { onMount } from 'svelte';
+    $: editMode = $appData.vehicleEdit;
     $: year = '';
     $: make = '';
     $: model = '';
     $: yearError = null;
     $: makeError = null;
     $: modelError = null;
-    $: newObj = VehicleFactory.createVehicle({
+    $: newObj = {
         year: year.trim(),
         make: make.trim(),
         model: model.trim(),
-    });
+    };
 
     const validateYear = () => {
         yearError = null;
@@ -56,26 +58,55 @@
             if (validateMake()) {
                 if (validateModel()) {
                     $appData.loading = true;
-                    await firebaseAddVehicle(newObj.dbObject())
-                        .then(() => {
-                            modal.back();
-                            $appData.view = 'Vehicles';
-                        })
-                        .catch((e) => {
-                            console.log(e);
+                    if (editMode) {
+                        const editVehicle = VehicleFactory.createVehicle({
+                            ...$appData.vehicle.dbObject(),
+                            ...newObj,
                         });
+                        await firebaseSetItem('vehicles', editVehicle.dbObject())
+                            .then(() => {
+                                modal.back();
+                                $appData.view = 'Vehicles';
+                            })
+                            .catch((e) => {
+                                console.log(e);
+                            });
+                    } else {
+                        const newVehicle = VehicleFactory.createVehicle(newObj);
+                        await firebaseAddVehicle(newVehicle.dbObject())
+                            .then(() => {
+                                modal.back();
+                                $appData.view = 'Vehicles';
+                            })
+                            .catch((e) => {
+                                console.log(e);
+                            });
+                    }
                     $appData.loading = false;
                 }
             }
         }
     };
+
+    onMount(() => {
+        if (editMode) {
+            const vehicle = $appData.vehicle.dbObject();
+            year = vehicle.year;
+            make = vehicle.make;
+            model = vehicle.model;
+        }
+    });
 </script>
 
 <style>
 </style>
 
 <Page topLeft on:tlClick={() => modal.back()}>
-    <h1 class=" text-2xl italic font-bold text-center mb-4">Add New Vehicle</h1>
+    {#if editMode}
+        <h1 class=" text-2xl italic font-bold text-center mb-4">Edit Vehicle</h1>
+    {:else}
+        <h1 class=" text-2xl italic font-bold text-center mb-4">Add New Vehicle</h1>
+    {/if}
     <form class="grid grid-col-1 gap-4" on:submit|preventDefault={handleSubmit}>
         <label class="font-bold" for="year">Year:</label>
         <input
