@@ -24,7 +24,9 @@
     };
 
     const handleDelete = () => {
-        const result = confirm(`Are you sure you want to delete "${name}" from the database?`);
+        const result = confirm(
+            `Are you sure you want to delete "${name}" from the database?`
+        );
         if (result) {
             firebaseDeleteItem('parts', id)
                 .then(() => {
@@ -63,11 +65,15 @@
     <h1 class=" text-2xl italic font-bold text-center mb-4">{name}</h1>
 
     <div class="grid grid-cols-1 gap-2 mb-2">
-        <Tile src="./assets/svg/cubes.svg"><span>CATEGORY: {category}</span></Tile>
+        <Tile src="./assets/svg/cubes.svg">
+            <span>CATEGORY: {category}</span>
+        </Tile>
         <Tile src="./assets/svg/cubes.svg"><span>NAME: {name}</span></Tile>
         <Tile src="./assets/svg/cubes.svg"><span>MODEL: {model}</span></Tile>
         {#each Object.entries(rest) as [fieldKey, fieldVal] (fieldKey)}
-            <Tile src="./assets/svg/cubes.svg"><span>{fieldKey.toUpperCase()}: {fieldVal}</span></Tile>
+            <Tile src="./assets/svg/cubes.svg">
+                <span>{fieldKey.toUpperCase()}: {fieldVal}</span>
+            </Tile>
         {/each}
     </div>
 </Page>
