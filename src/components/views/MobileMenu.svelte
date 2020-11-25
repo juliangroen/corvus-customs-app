@@ -11,8 +11,8 @@
         $appData.user = null;
         menu.toggle();
     };
-    const handleLink = (link) => {
-        $appData.view = link.target;
+    const handleLink = (target) => {
+        $appData.view = target;
         menu.close();
         modal.hardClose();
     };
@@ -27,9 +27,11 @@
 <div
     class="md:hidden absolute inset-0 z-40 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full pt-12">
     <section class="mt-8">
-        {#each $appData.menuLinks as link}
-            <div class="cursor-pointer mb-8" on:click={() => handleLink(link)}>{link.name.toUpperCase()}</div>
-        {/each}
+        <div class="cursor-pointer mb-8" on:click={() => handleLink('Vehicles')}>VEHICLES</div>
+
+        {#if $appData.admin}
+            <div class="cursor-pointer mb-8" on:click={() => handleLink('Reports')}>REPORTS</div>
+        {/if}
     </section>
     <footer class="absolute bottom-0 w-full h-24">
         {#if $appData.user}

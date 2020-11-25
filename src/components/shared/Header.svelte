@@ -9,8 +9,8 @@
         $appData.user = null;
         menu.close();
     };
-    const handleLink = (link) => {
-        $appData.view = link.target;
+    const handleLink = (target) => {
+        $appData.view = target;
         menu.close();
         modal.hardClose();
     };
@@ -34,13 +34,16 @@
         <MenuIcon size="32" clicked={$menu} />
     </div>
 
-    <div class="hidden md:flex items-center justify-center space-x-8 h-full ">
-        {#each $appData.menuLinks as link}
+    <div class="hidden md:flex items-center justify-start space-x-8 h-full ml-16">
+        {#if $appData.user}
             <span
                 class="cursor-pointer leading-none text-lg hover:text-indigo-200"
-                on:click={() => handleLink(link)}>{link.name}</span>
-        {/each}
-        {#if $appData.user}
+                on:click={() => handleLink('Vehicles')}>Vehicles</span>
+            {#if $appData.admin}
+                <span
+                    class="cursor-pointer leading-none text-lg hover:text-indigo-200"
+                    on:click={() => handleLink('Reports')}>Reports</span>
+            {/if}
             <div class="absolute top-0 right-0 flex items-center justify-center h-full pr-1">
                 <div class="cursor-pointer leading-none text-lg ml-4 mr-2" on:click={handleSignOut}>Sign Out</div>
                 <div class="p-1">

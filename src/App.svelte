@@ -20,8 +20,12 @@
         unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) {
                 $appData.user = firebaseUser;
+                if (firebaseUser.email === 'admin@wgu.edu') {
+                    $appData.admin = true;
+                }
             } else {
                 console.log('not logged in');
+                $appData.admin = false;
             }
             $appData.loading = false;
         });
@@ -69,7 +73,7 @@
                 <EditVehicle />
             {:else if $appData.view === 'PartSearch'}
                 <PartSearch />
-            {/if}
+            {:else if $appData.view === 'Reports' && $appData.admin}Reports{/if}
         </section>
     {:else}
         <UserLogin />

@@ -4,13 +4,9 @@ import VehicleFactory from './models/VehicleFactory';
 import PartFactory from './models/PartFactory';
 
 export const appData = writable({
+    admin: false,
     category: null,
     loading: true,
-    menuLinks: [
-        { name: 'Vehicles', target: 'Vehicles' },
-        { name: 'Parts', target: 'PartsList' },
-        { name: 'Reports', target: 'AdminReports' },
-    ],
     part: null,
     partEdit: false,
     selectedPart: false,
@@ -73,6 +69,8 @@ export const vehicles = (() => {
                     let data = snapshot.docs
                         .map((val) => {
                             let doc = val.data();
+                            console.log(val);
+                            console.log(val.ref);
                             return VehicleFactory.createVehicle(doc);
                         })
                         .filter((val) => val !== undefined);
