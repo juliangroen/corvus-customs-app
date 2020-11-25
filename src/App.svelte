@@ -13,6 +13,7 @@
     import AddPart from './components/views/AddPart.svelte';
     import ViewPart from './components/views/ViewPart.svelte';
     import { onDestroy, onMount } from 'svelte';
+    import Reports from './components/views/Reports.svelte';
 
     // Realtime Firebase User Listener
     let unsubscribe;
@@ -73,7 +74,9 @@
                 <EditVehicle />
             {:else if $appData.view === 'PartSearch'}
                 <PartSearch />
-            {:else if $appData.view === 'Reports' && $appData.admin}Reports{/if}
+            {:else if $appData.view === 'Reports' && $appData.admin}
+                <Reports />
+            {/if}
         </section>
     {:else}
         <UserLogin />
