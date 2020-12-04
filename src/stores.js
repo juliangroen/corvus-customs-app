@@ -11,7 +11,7 @@ export const appData = writable({
     partEdit: false,
     selectedPart: false,
     user: null,
-    view: 'Reports',
+    view: 'Vehicles',
     vehicle: null,
     vehicleEdit: false,
 });
