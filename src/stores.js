@@ -91,14 +91,12 @@ export const parts = (() => {
     const partsRef = db.collection('parts');
     const partsCache = JSON.parse(localStorage.getItem('partsCache'));
     const partsList = partsCache === null ? null : partsCache.map((item) => makePart(item.category, item));
-    console.log(partsCache);
     let appDataStore = null;
     const unsubAppData = appData.subscribe((value) => (appDataStore = value));
     partsCache === null ? (appDataStore.partsUpdated = true) : null;
-    console.log(appDataStore.partsUpdated);
-    const parts = readable(partsList !== null ? partsList : [], async (set) => {
+    const parts = readable(partsList !== null ? partsList : [], (set) => {
         if (appDataStore.partsUpdated) {
-            await partsRef.get().then((res) => {
+            partsRef.get().then((res) => {
                 const snapshot = res.docs.map((doc) => doc.data());
                 set(snapshot.map((item) => makePart(item.category, item)));
                 localStorage.setItem('partsCache', JSON.stringify(snapshot));
@@ -108,39 +106,6 @@ export const parts = (() => {
         } else {
             console.log('pulled parts from cache');
         }
-
-        // const unsubscribe = db
-        //     .collection('parts')
-        //     .orderBy('id', 'asc')
-        //     .onSnapshot(
-        //         (snapshot) => {
-        //             let data = snapshot.docs
-        //                 .map((val) => {
-        //                     let doc = val.data();
-        //                     switch (doc.category) {
-        //                         case 'tires':
-        //                             return PartFactory.createTire(doc);
-        //                         case 'chargers':
-        //                             return PartFactory.createCharger(doc);
-        //                         case 'wheels':
-        //                             return PartFactory.createWheel(doc);
-        //                         case 'shocks':
-        //                             return PartFactory.createShock(doc);
-        //                         case 'brakes':
-        //                             return PartFactory.createBrake(doc);
-        //                         case 'exhausts':
-        //                             return PartFactory.createExhaust(doc);
-        //                         default:
-        //                             break;
-        //                     }
-        //                 })
-        //                 .filter((val) => val !== undefined);
-        //             set(data);
-        //         },
-        //         (e) => {
-        //             console.log(e);
-        //         }
-        //     );
         return () => {
             unsubAppData();
         };

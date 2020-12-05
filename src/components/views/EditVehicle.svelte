@@ -107,17 +107,17 @@
                 box
                 empty={shocks ? null : true}
                 src={`${svgPath}shocks.svg`}
-                on:click={shocks ? () => handlePartClick('wheels', shocks) : handlePartSearch('shocks')} />
+                on:click={shocks ? () => handlePartClick('shocks', shocks) : handlePartSearch('shocks')} />
             <Tile
                 box
                 empty={brakes ? null : true}
                 src={`${svgPath}brakes.svg`}
-                on:click={brakes ? () => handlePartClick('wheels', brakes) : handlePartSearch('brakes')} />
+                on:click={brakes ? () => handlePartClick('brakes', brakes) : handlePartSearch('brakes')} />
             <Tile
                 box
                 empty={exhausts ? null : true}
                 src={`${svgPath}exhausts.svg`}
-                on:click={exhausts ? () => handlePartClick('wheels', exhausts) : handlePartSearch('exhausts')} />
+                on:click={exhausts ? () => handlePartClick('exhausts', exhausts) : handlePartSearch('exhausts')} />
         </div>
     </div>
 </Page>

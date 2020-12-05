@@ -113,11 +113,15 @@
     };
 
     const submitPart = (part) => {
-        firebaseSetItem('parts', part.dbObject())
-            .then(() => {
-                modal.back();
-            })
-            .catch((e) => console.log(e));
+        let result = confirm(`Are you sure you want to save "${part.getName()}" to the database?`);
+        if (result) {
+            firebaseSetItem('parts', part.dbObject())
+                .then(() => {
+                    $appData.partsUpdated = true;
+                    modal.back();
+                })
+                .catch((e) => console.log(e));
+        }
     };
 
     const handleSubmit = () => {
