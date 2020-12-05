@@ -34,12 +34,7 @@
     onDestroy(() => unsubscribe());
 </script>
 
-<style global>
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-</style>
-
+<Tailwindcss />
 <Header />
 <main class="m-4 max-w-xl mx-auto p-4">
     {#if $menu}
@@ -86,10 +81,12 @@
     {:else}
         <UserLogin />
     {/if}
-    <div class="hidden md:block border-t border-gray-200 text-xs text-center text-gray-200 w-full pt-4 mt-8">
-        <span> © 2020 Corvus Customs - Icons made by</span>
-        <a class="text-indigo-100" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
-        from
-        <a class="text-indigo-100" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
-    </div>
+    {#if !$appData.loading}
+        <div class="hidden md:block border-t border-gray-200 text-xs text-center text-gray-200 w-full pt-4 mt-8">
+            <span> © 2020 Corvus Customs - Icons made by</span>
+            <a class="text-indigo-100" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            from
+            <a class="text-indigo-100" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+        </div>
+    {/if}
 </main>
