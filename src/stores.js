@@ -1,7 +1,6 @@
 import { readable, writable } from 'svelte/store';
 import { db } from './firebase';
 import VehicleFactory from './models/VehicleFactory';
-import PartFactory from './models/PartFactory';
 import makePart from './shared/partHelper';
 
 export const appData = writable({
@@ -16,6 +15,7 @@ export const appData = writable({
     view: 'Vehicles',
     vehicle: null,
     vehicleEdit: false,
+    vehicleUpdated: false,
 });
 
 export const menu = (() => {
@@ -62,26 +62,26 @@ export const modal = (() => {
 })();
 
 export const vehicles = (() => {
-    const vehicles = readable([], (set) => {
-        const unsubscribe = db
-            .collection('vehicles')
-            .orderBy('id', 'asc')
-            .onSnapshot(
-                (snapshot) => {
-                    let data = snapshot.docs
-                        .map((val) => {
-                            let doc = val.data();
-                            return VehicleFactory.createVehicle(doc);
-                        })
-                        .filter((val) => val !== undefined);
-                    set(data);
-                },
-                (e) => {
-                    console.log(e);
-                }
-            );
+    const vehiclesRef = db.collection('vehicles');
+    const vehicleCache = JSON.parse(localStorage.getItem('vehicleCache'));
+    const vehicleList = vehicleCache === null ? null : vehicleCache.map((item) => VehicleFactory.createVehicle(item));
+    let appDataStore = null;
+    const unsubAppData = appData.subscribe((value) => (appDataStore = value));
+    vehicleCache === null ? (appDataStore.vehicleUpdated = true) : null;
+    const vehicles = readable(vehicleList !== null ? vehicleList : [], (set) => {
+        if (appDataStore.vehicleUpdated) {
+            vehiclesRef.get().then((res) => {
+                const snapshot = res.docs.map((doc) => doc.data());
+                set(snapshot.map((item) => VehicleFactory.createVehicle(item)));
+                localStorage.setItem('vehicleCache', JSON.stringify(snapshot));
+                console.log('pulled vehicles from database');
+                appDataStore.vehicleUpdated = false;
+            });
+        } else {
+            console.log('pulled vehicles from cache');
+        }
         return () => {
-            unsubscribe();
+            unsubAppData();
         };
     });
     return vehicles;

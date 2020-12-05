@@ -28,6 +28,7 @@
         if (result) {
             firebaseDeleteItem('parts', id)
                 .then(() => {
+                    console.log(id, 'was deleted');
                     $appData.partsUpdated = true;
                     modal.back();
                 })

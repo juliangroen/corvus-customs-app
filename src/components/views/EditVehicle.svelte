@@ -33,7 +33,8 @@
         if (result) {
             firebaseDeleteItem('vehicles', vehicle.getId())
                 .then(() => {
-                    console.log(`${vehicle.id} was deleted`);
+                    $appData.vehicleUpdated = true;
+                    console.log(`${vehicle.getId()} was deleted`);
                     $appData.view = 'Vehicles';
                 })
                 .catch((e) => {

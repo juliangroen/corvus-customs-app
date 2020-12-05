@@ -1,7 +1,7 @@
 <script>
     import { appData, modal } from '../../stores';
     import VehicleFactory from '../../models/VehicleFactory';
-    import { firebaseAddVehicle, firebaseSetItem } from '../../firebase';
+    import { firebaseSetItem } from '../../firebase';
     import Page from '../shared/Page.svelte';
     import { onDestroy, onMount } from 'svelte';
     $: editMode = $appData.vehicleEdit;
@@ -59,22 +59,14 @@
                 if (validateModel()) {
                     $appData.loading = true;
                     if (editMode) {
-                        const editVehicle = VehicleFactory.createVehicle({
-                            ...$appData.vehicle.dbObject(),
-                            ...newObj,
-                        });
-                        await firebaseSetItem('vehicles', editVehicle.dbObject())
-                            .then(() => {
-                                modal.back();
-                                $appData.view = 'Vehicles';
-                            })
-                            .catch((e) => {
-                                console.log(e);
-                            });
-                    } else {
+                        newObj = { ...$appData.vehicle.dbObject(), ...newObj };
+                    }
+                    const result = confirm(`Are you sure you want to save this vehicle to the database?`);
+                    if (result) {
                         const newVehicle = VehicleFactory.createVehicle(newObj);
-                        await firebaseAddVehicle(newVehicle.dbObject())
+                        await firebaseSetItem('vehicles', newVehicle.dbObject())
                             .then(() => {
+                                $appData.vehicleUpdated = true;
                                 modal.back();
                                 $appData.view = 'Vehicles';
                             })
@@ -87,6 +79,41 @@
             }
         }
     };
+
+    // const handleSubmit = async () => {
+    //     if (validateYear()) {
+    //         if (validateMake()) {
+    //             if (validateModel()) {
+    //                 $appData.loading = true;
+    //                 if (editMode) {
+    //                     const editVehicle = VehicleFactory.createVehicle({
+    //                         ...$appData.vehicle.dbObject(),
+    //                         ...newObj,
+    //                     });
+    //                     await firebaseSetItem('vehicles', editVehicle.dbObject())
+    //                         .then(() => {
+    //                             modal.back();
+    //                             $appData.view = 'Vehicles';
+    //                         })
+    //                         .catch((e) => {
+    //                             console.log(e);
+    //                         });
+    //                 } else {
+    //                     const newVehicle = VehicleFactory.createVehicle(newObj);
+    //                     await firebaseAddVehicle(newVehicle.dbObject())
+    //                         .then(() => {
+    //                             modal.back();
+    //                             $appData.view = 'Vehicles';
+    //                         })
+    //                         .catch((e) => {
+    //                             console.log(e);
+    //                         });
+    //                 }
+    //                 $appData.loading = false;
+    //             }
+    //         }
+    //     }
+    // };
 
     onMount(() => {
         if (editMode) {
