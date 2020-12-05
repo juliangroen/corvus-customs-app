@@ -26,7 +26,7 @@
         "svelte": "^3.30.1",
         "svelte-jester": "^1.1.5",
         "svelte-preprocess": "^4.6.1",
-        "tailwindcss": "^1.9.6"
+        "tailwindcss": "^2.0.1"
     },
     "dependencies": {
         "firebase": "^8.1.1",

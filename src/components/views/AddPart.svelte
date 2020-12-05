@@ -298,6 +298,6 @@
                 placeholder="please enter a caliper type" />
             {#if caliperError}<span class="text-red-300 italic mx-auto">{caliperError}</span>{/if}
         {/if}
-        <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+        <button class="bg-gray-400 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
     </form>
 </Page>

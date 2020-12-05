@@ -34,14 +34,19 @@
     onDestroy(() => unsubscribe());
 </script>
 
-<Tailwindcss />
+<style global>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+</style>
+
 <Header />
 <main class="m-4 max-w-xl mx-auto p-4">
     {#if $menu}
         <MobileMenu />
     {/if}
     {#if $appData.loading}
-        <div class="absolute inset-0 text-gray-400 max-w-xs md:max-w-sm mx-auto mt-16">
+        <div class="absolute inset-0 text-gray-300 max-w-xs md:max-w-sm mx-auto mt-16">
             <svg
                 class="animate-spin"
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,4 +86,10 @@
     {:else}
         <UserLogin />
     {/if}
+    <div class="hidden md:block border-t border-gray-200 text-xs text-center text-gray-200 w-full pt-4 mt-8">
+        <span> © 2020 Corvus Customs - Icons made by</span>
+        <a class="text-indigo-100" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+        from
+        <a class="text-indigo-100" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+    </div>
 </main>

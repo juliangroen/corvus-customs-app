@@ -25,7 +25,7 @@
 </style>
 
 <div
-    class="md:hidden absolute inset-0 z-40 bg-gray-600 text-white text-3xl tracking-wider text-center w-full h-full pt-12">
+    class="md:hidden absolute inset-0 z-40 bg-gray-400 text-white text-3xl tracking-wider text-center w-full h-full pt-12">
     <section class="mt-8">
         <div class="cursor-pointer mb-8" on:click={() => handleLink('Vehicles')}>VEHICLES</div>
 
@@ -40,12 +40,11 @@
         {:else}
             <div class="cursor-pointer" on:click={handleSignIn}>SIGN IN</div>
         {/if}
-        <div class="xs absolute bottom-0 text-center text-gray-400 w-full mb-3">
-            <div>©2020 Corvus Customs</div>
+        <div class="xs absolute bottom-0 text-center text-gray-200 w-full">
             <span>Icons made by</span>
-            <a class="text-gray-200" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            <a class="text-indigo-100" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
             from
-            <a class="text-gray-200" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+            <a class="text-indigo-100" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
         </div>
     </footer>
 </div>

@@ -112,7 +112,7 @@
         <section class="flex space-x-1 text-sm max-w-xl overflow-x-auto">
             <div class="flex flex-col space-y-1 w-24">
                 {#each rowHeaders as item}
-                    <div class="bg-gray-600 rounded-lg text-white text-center h-8 px-1">
+                    <div class="bg-gray-400 rounded-lg text-white text-center h-8 px-1">
                         <span class="leading-8">{item}</span>
                     </div>
                 {/each}

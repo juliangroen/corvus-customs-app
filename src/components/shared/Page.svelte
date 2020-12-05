@@ -8,22 +8,22 @@
 
     $: topLeftButton = {
         text: 'BACK',
-        color: 'gray-600',
+        color: 'bg-gray-400',
         ...topLeft,
     };
     $: topRightButton = {
         text: 'ADD',
-        color: 'gray-600',
+        color: 'bg-gray-400',
         ...topRight,
     };
     $: bottomLeftButton = {
         text: 'DELETE',
-        color: 'red-400',
+        color: 'bg-red-400',
         ...bottomLeft,
     };
     $: bottomRightButton = {
         text: 'SAVE',
-        color: 'gray-600',
+        color: 'bg-gray-400',
         ...bottomRight,
     };
     $: topRow = topLeft || topRight ? true : false;
@@ -39,13 +39,13 @@
         <!-- Left Button -->
         {#if topLeft}
             <span
-                class="absolute left-0 cursor-pointer bg-{topLeftButton.color} text-white text-center leading-10 rounded-full w-1/4"
+                class="absolute left-0 cursor-pointer {topLeftButton.color} text-white text-center leading-10 rounded-full w-1/4"
                 on:click={() => dispatch('tlClick')}>{topLeftButton.text}</span>
         {/if}
         <!-- Right Button -->
         {#if topRight}
             <span
-                class="absolute right-0 cursor-pointer bg-{topRightButton.color} text-white text-center leading-10 rounded-full w-1/4"
+                class="absolute right-0 cursor-pointer {topRightButton.color} text-white text-center leading-10 rounded-full w-1/4"
                 on:click={() => dispatch('trClick')}>{topRightButton.text}</span>
         {/if}
     </div>
@@ -63,13 +63,13 @@
         <!-- Left Button -->
         {#if bottomLeft}
             <span
-                class="absolute left-0 cursor-pointer bg-{bottomLeftButton.color} text-white text-center leading-10 rounded-full w-1/4"
+                class="absolute left-0 cursor-pointer {bottomLeftButton.color} text-white text-center leading-10 rounded-full w-1/4"
                 on:click={() => dispatch('blClick')}>{bottomLeftButton.text}</span>
         {/if}
         <!-- Right Button -->
         {#if bottomRight}
             <span
-                class="absolute right-0 cursor-pointer bg-{bottomRightButton.color} text-white text-center leading-10 rounded-full w-1/4"
+                class="absolute right-0 cursor-pointer {bottomRightButton.color} text-white text-center leading-10 rounded-full w-1/4"
                 on:click={() => dispatch('brClick')}>{bottomRightButton.text}</span>
         {/if}
     </div>

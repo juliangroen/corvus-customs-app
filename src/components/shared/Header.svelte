@@ -19,7 +19,7 @@
 <style>
 </style>
 
-<header class="relative z-50 bg-gray-600 text-white text-center h-12">
+<header class="relative z-50 bg-gray-400 text-white text-center h-12">
     <div
         class="absolute cursor-pointer left-0 h-12 w-12 pt-1 pl-1 hover:text-indigo-200"
         on:click={() => {

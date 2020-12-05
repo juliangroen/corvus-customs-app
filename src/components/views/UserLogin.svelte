@@ -72,6 +72,6 @@
         on:change={validatePassword} />
 
     {#if passError}<span class="text-red-300 italic mx-auto">{passError}</span>{/if}
-    <button class="bg-gray-600 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
+    <button class="bg-gray-400 rounded-full text-white w-1/2 p-2 mx-auto">SUBMIT</button>
     {#if loginError}<span class="text-red-300 italic text-center mx-auto">Login Error: {loginError}</span>{/if}
 </form>
